@@ -1,46 +1,10 @@
 package apiTests;
 
-import io.restassured.RestAssured;
-import io.restassured.response.Response;
-import io.restassured.specification.RequestSpecification;
 import model.*;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 
 public class ListTests {
-
-
-
-    private Response doRequest(String url, method meth){
-        RequestSpecification httpRequest = RestAssured.given().header("Content-Type", "text/plain");
-        Response response = null;
-        switch (meth){
-            case get -> response = httpRequest.get(url);
-            case post -> response = httpRequest.post(url);
-            case put -> response = httpRequest.put(url);
-        }
-        return response;
-    }
-
-    private CreateListResponse createList(String listName){
-        String url = TrelloProductionEndpoints.createList(listName);
-        Response response = doRequest(url, method.post);
-        CreateListResponse responseBody = response.jsonPath().getObject("$", CreateListResponse.class);
-        return responseBody;
-    }
-
-    @Before
-    public void cleanBoard(){
-        String url = TrelloProductionEndpoints.getAllListsOfBoard();
-        Response response = doRequest(url, method.get);
-        GetListsOnBoardResponse[] allLists = response.jsonPath().getObject("$", GetListsOnBoardResponse[].class);
-        for (GetListsOnBoardResponse list : allLists){
-            String listId = list.getId();
-            url = TrelloProductionEndpoints.archiveList(listId);
-            doRequest(url, method.put);
-        }
-    }
 
     @Test
     public void shouldCreateNewEmptyList(){
