@@ -18,6 +18,8 @@ public class ListTests {
         Assert.assertEquals(listNameToCreate, responseBody.getName());
         Assert.assertEquals(false, responseBody.getClosed());
         Assert.assertEquals(TrelloProductionEndpoints.BOARD_ID, responseBody.getIdBoard());
+        //TearDown
+        listClient.archiveList(responseBody.getId());
     }
 
     @Test
@@ -34,6 +36,8 @@ public class ListTests {
         Assert.assertEquals(listName, getListResponseBody.getName());
         Assert.assertEquals(false, getListResponseBody.getClosed());
         Assert.assertEquals(TrelloProductionEndpoints.BOARD_ID, getListResponseBody.getIdBoard());
+        //TearDown
+        listClient.archiveList(listID);
     }
 
     @Test
@@ -51,6 +55,8 @@ public class ListTests {
         Assert.assertEquals(listId, renameResponseBody.getId());
         Assert.assertEquals(newListName, renameResponseBody.getName());
         Assert.assertEquals(newListName, getListResponseBody.getName());
+        //TearDown
+        listClient.archiveList(listId);
     }
 
     @Test
@@ -68,6 +74,8 @@ public class ListTests {
         Assert.assertEquals(listName, archivedListBody.getName());
         Assert.assertEquals(true, archivedListBody.getClosed());
         Assert.assertEquals(true, getListResponseBody.getClosed());
+        //TearDown
+        listClient.archiveList(listId);
     }
 
     @Test
@@ -86,6 +94,8 @@ public class ListTests {
         Assert.assertEquals(listName, unarchivedListBody.getName());
         Assert.assertEquals(false, unarchivedListBody.getClosed());
         Assert.assertEquals(false, getListResponseBody.getClosed());
+        //TearDown
+        listClient.archiveList(listId);
     }
     //TODO tests for different names of the list
     //TODO tests of operations with non existing list

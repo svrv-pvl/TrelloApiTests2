@@ -7,7 +7,6 @@ import model.CreateListResponse;
 import model.GetListResponse;
 import model.UpdateListResponse;
 import org.apache.http.HttpStatus;
-import org.junit.Assert;
 
 public class ListClient {
     private RequestSpecification prepareRequest(){
