@@ -4,7 +4,7 @@ import model.*;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class ListTests {
+public class ListTest {
 
     @Test
     public void shouldCreateNewEmptyList(){
