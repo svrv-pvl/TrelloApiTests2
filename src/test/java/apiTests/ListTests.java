@@ -80,6 +80,7 @@ public class ListTests {
 
     @Test
     public  void  shouldUnarchiveList(){
+        System.out.println("Test that archived list should be unarchived successfully");
         //Arrange
         String listName = "testList";
         ListClient listClient = new ListClient();
@@ -99,4 +100,6 @@ public class ListTests {
     }
     //TODO tests for different names of the list
     //TODO tests of operations with non existing list
+
+    //TODO combine assertions
 }
