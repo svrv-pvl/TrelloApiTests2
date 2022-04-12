@@ -1,8 +1,9 @@
 package apiTests;
 
 import model.*;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ListTest {
 
@@ -15,9 +16,9 @@ public class ListTest {
         ListClient listClient = new ListClient();
         CreateListResponse responseBody = listClient.createList(listNameToCreate);
         //Assert
-        Assert.assertEquals(listNameToCreate, responseBody.getName());
-        Assert.assertEquals(false, responseBody.getClosed());
-        Assert.assertEquals(TrelloProductionEndpoints.BOARD_ID, responseBody.getIdBoard());
+        assertEquals(listNameToCreate, responseBody.getName());
+        assertEquals(false, responseBody.getClosed());
+        assertEquals(TrelloProductionEndpoints.BOARD_ID, responseBody.getIdBoard());
         //TearDown
         listClient.archiveList(responseBody.getId());
     }
@@ -32,10 +33,10 @@ public class ListTest {
         //Act
         GetListResponse getListResponseBody = listClient.getList(listID);
         //Assert
-        Assert.assertEquals(listID, getListResponseBody.getId());
-        Assert.assertEquals(listName, getListResponseBody.getName());
-        Assert.assertEquals(false, getListResponseBody.getClosed());
-        Assert.assertEquals(TrelloProductionEndpoints.BOARD_ID, getListResponseBody.getIdBoard());
+        assertEquals(listID, getListResponseBody.getId());
+        assertEquals(listName, getListResponseBody.getName());
+        assertEquals(false, getListResponseBody.getClosed());
+        assertEquals(TrelloProductionEndpoints.BOARD_ID, getListResponseBody.getIdBoard());
         //TearDown
         listClient.archiveList(listID);
     }
@@ -52,9 +53,9 @@ public class ListTest {
         UpdateListResponse renameResponseBody = listClient.renameList(listId, newListName);
         GetListResponse getListResponseBody = listClient.getList(listId);
         //Assert
-        Assert.assertEquals(listId, renameResponseBody.getId());
-        Assert.assertEquals(newListName, renameResponseBody.getName());
-        Assert.assertEquals(newListName, getListResponseBody.getName());
+        assertEquals(listId, renameResponseBody.getId());
+        assertEquals(newListName, renameResponseBody.getName());
+        assertEquals(newListName, getListResponseBody.getName());
         //TearDown
         listClient.archiveList(listId);
     }
@@ -70,10 +71,10 @@ public class ListTest {
         UpdateListResponse archivedListBody = listClient.archiveList(listId);
         GetListResponse getListResponseBody = listClient.getList(listId);
         //Assert
-        Assert.assertEquals(listId, archivedListBody.getId());
-        Assert.assertEquals(listName, archivedListBody.getName());
-        Assert.assertEquals(true, archivedListBody.getClosed());
-        Assert.assertEquals(true, getListResponseBody.getClosed());
+        assertEquals(listId, archivedListBody.getId());
+        assertEquals(listName, archivedListBody.getName());
+        assertEquals(true, archivedListBody.getClosed());
+        assertEquals(true, getListResponseBody.getClosed());
         //TearDown
         listClient.archiveList(listId);
     }
@@ -91,10 +92,10 @@ public class ListTest {
         UpdateListResponse unarchivedListBody = listClient.unarchiveList(listId);
         GetListResponse getListResponseBody = listClient.getList(listId);
         //Assert
-        Assert.assertEquals(listId, unarchivedListBody.getId());
-        Assert.assertEquals(listName, unarchivedListBody.getName());
-        Assert.assertEquals(false, unarchivedListBody.getClosed());
-        Assert.assertEquals(false, getListResponseBody.getClosed());
+        assertEquals(listId, unarchivedListBody.getId());
+        assertEquals(listName, unarchivedListBody.getName());
+        assertEquals(false, unarchivedListBody.getClosed());
+        assertEquals(false, getListResponseBody.getClosed());
         //TearDown
         listClient.archiveList(listId);
     }
