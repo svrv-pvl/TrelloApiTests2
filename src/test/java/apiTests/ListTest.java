@@ -93,8 +93,17 @@ public class ListTest {
         //TearDown
         ListClient.archiveList(listId);
     }
+
+    @Test
+    public void shouldGetErrorWhenListIdDoesNotExist(){
+        //Arrange
+        String listID = "1111111111";
+        //Act
+        int getListErrorCode = ListClient.getListResponseWithErrorCode(listID);
+        //Assert
+        assertEquals(getListErrorCode, 400);
+    }
+
     //TODO tests for different names of the list
     //TODO tests of operations with non existing list
-
-    //TODO combine assertions
 }

@@ -32,6 +32,13 @@ public class ListClient {
         return responseBody;
     }
 
+    public static int getListResponseWithErrorCode(String listId){
+        RequestSpecification request = prepareRequest();
+        String url = TrelloProductionEndpoints.getList(listId);
+        Response response = request.get(url);
+        return response.statusCode();
+    }
+
     public static UpdateListResponse renameList(String listId, String listNewName){
         RequestSpecification request = prepareRequest();
         String url = TrelloProductionEndpoints.renameList(listId, listNewName);
