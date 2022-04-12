@@ -2,6 +2,8 @@ package apiTests;
 
 import model.*;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -135,5 +137,17 @@ public class ListTest {
         assertEquals(getListErrorCode, 400);
     }
 
-    //TODO tests for different names of the list
+
+    @ParameterizedTest
+    @ValueSource(strings = {" ", "1", "a", "!", "dsfsdfsdfsdf dfgfdg fdgdf dfgdss s s  sfdg d fdf gdf"})
+    public void shouldCreateNewEmptyListWithDifferentNames(String listNameToCreate){
+        //Arrange
+
+        //Act
+        CreateListResponse responseBody = ListClient.createList(listNameToCreate);
+        //Assert
+        assertEquals(listNameToCreate, responseBody.getName());
+        //TearDown
+        ListClient.archiveList(responseBody.getId());
+    }
 }
