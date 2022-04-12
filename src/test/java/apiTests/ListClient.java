@@ -14,9 +14,9 @@ public class ListClient {
         return spec;
     }
 
-    public static CreateListResponse createList(String listName){
+    public static CreateListResponse createList(String listName, String boardID){
         RequestSpecification request = prepareRequest();
-        String url = TrelloProductionEndpoints.createList(listName);
+        String url = TrelloProductionEndpoints.createList(listName, boardID);
         Response response = request.post(url);
         response.then().assertThat().statusCode(HttpStatus.SC_OK);
         CreateListResponse responseBody = response.jsonPath().getObject("$", CreateListResponse.class);

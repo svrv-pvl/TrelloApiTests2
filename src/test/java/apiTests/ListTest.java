@@ -9,17 +9,19 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ListTest {
 
+    static final String BOARD_ID = "62445ffced32e95e1629e783";
+
     @Test
     public void shouldCreateNewEmptyList(){
         //Arrange
 
         //Act
         String listNameToCreate = "fromPostman";
-        CreateListResponse responseBody = ListClient.createList(listNameToCreate);
+        CreateListResponse responseBody = ListClient.createList(listNameToCreate, BOARD_ID);
         //Assert
         assertEquals(listNameToCreate, responseBody.getName());
         assertEquals(false, responseBody.getClosed());
-        assertEquals(TrelloProductionEndpoints.BOARD_ID, responseBody.getIdBoard());
+        assertEquals(BOARD_ID, responseBody.getIdBoard());
         //TearDown
         ListClient.archiveList(responseBody.getId());
     }
@@ -28,7 +30,7 @@ public class ListTest {
     public void shouldGetList(){
         //Arrange
         String listName = "testList";
-        CreateListResponse createdPrerequisiteList = ListClient.createList(listName);
+        CreateListResponse createdPrerequisiteList = ListClient.createList(listName, BOARD_ID);
         String listID = createdPrerequisiteList.getId();
         //Act
         GetListResponse getListResponseBody = ListClient.getList(listID);
@@ -36,7 +38,7 @@ public class ListTest {
         assertEquals(listID, getListResponseBody.getId());
         assertEquals(listName, getListResponseBody.getName());
         assertEquals(false, getListResponseBody.getClosed());
-        assertEquals(TrelloProductionEndpoints.BOARD_ID, getListResponseBody.getIdBoard());
+        assertEquals(BOARD_ID, getListResponseBody.getIdBoard());
         //TearDown
         ListClient.archiveList(listID);
     }
@@ -45,7 +47,7 @@ public class ListTest {
     public void shouldRenameList(){
         //Arrange
         String listName = "testUpdatedList";
-        CreateListResponse createdPrerequisiteList = ListClient.createList(listName);
+        CreateListResponse createdPrerequisiteList = ListClient.createList(listName, BOARD_ID);
         String listId = createdPrerequisiteList.getId();
         //Act
         String newListName = "newName";
@@ -63,7 +65,7 @@ public class ListTest {
     public  void  shouldArchiveList(){
         //Arrange
         String listName = "testList";
-        CreateListResponse createdPrerequisiteList = ListClient.createList(listName);
+        CreateListResponse createdPrerequisiteList = ListClient.createList(listName, BOARD_ID);
         String listId = createdPrerequisiteList.getId();
         //Act
         UpdateListResponse archivedListBody = ListClient.archiveList(listId);
@@ -81,7 +83,7 @@ public class ListTest {
     public  void  shouldUnarchiveList(){
         //Arrange
         String listName = "testList";
-        CreateListResponse createdPrerequisiteList = ListClient.createList(listName);
+        CreateListResponse createdPrerequisiteList = ListClient.createList(listName, BOARD_ID);
         String listId = createdPrerequisiteList.getId();
         ListClient.archiveList(listId);
         //Act
@@ -144,7 +146,7 @@ public class ListTest {
         //Arrange
 
         //Act
-        CreateListResponse responseBody = ListClient.createList(listNameToCreate);
+        CreateListResponse responseBody = ListClient.createList(listNameToCreate, BOARD_ID);
         //Assert
         assertEquals(listNameToCreate, responseBody.getName());
         //TearDown
