@@ -9,12 +9,12 @@ import model.UpdateListResponse;
 import org.apache.http.HttpStatus;
 
 public class ListClient {
-    private RequestSpecification prepareRequest(){
+    private static RequestSpecification prepareRequest(){
         RequestSpecification spec = RestAssured.given().header("Content-Type", "text/plain");
         return spec;
     }
 
-    public CreateListResponse createList(String listName){
+    public static CreateListResponse createList(String listName){
         RequestSpecification request = prepareRequest();
         String url = TrelloProductionEndpoints.createList(listName);
         Response response = request.post(url);
@@ -23,7 +23,7 @@ public class ListClient {
         return responseBody;
     }
 
-    public GetListResponse getList(String listId){
+    public static GetListResponse getList(String listId){
         RequestSpecification request = prepareRequest();
         String url = TrelloProductionEndpoints.getList(listId);
         Response response = request.get(url);
@@ -32,7 +32,7 @@ public class ListClient {
         return responseBody;
     }
 
-    public UpdateListResponse renameList(String listId, String listNewName){
+    public static UpdateListResponse renameList(String listId, String listNewName){
         RequestSpecification request = prepareRequest();
         String url = TrelloProductionEndpoints.renameList(listId, listNewName);
         Response response = request.put(url);
@@ -41,7 +41,7 @@ public class ListClient {
         return responseBody;
     }
 
-    public UpdateListResponse archiveList(String listId){
+    public static UpdateListResponse archiveList(String listId){
         RequestSpecification request = prepareRequest();
         String url = TrelloProductionEndpoints.archiveList(listId);
         Response response = request.put(url);
@@ -50,7 +50,7 @@ public class ListClient {
         return responseBody;
     }
 
-    public UpdateListResponse unarchiveList(String listId){
+    public static UpdateListResponse unarchiveList(String listId){
         RequestSpecification request = prepareRequest();
         String url = TrelloProductionEndpoints.unarchiveList(listId);
         Response response = request.put(url);
