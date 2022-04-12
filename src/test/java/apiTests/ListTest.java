@@ -81,7 +81,6 @@ public class ListTest {
 
     @Test
     public  void  shouldUnarchiveList(){
-        System.out.println("Test that archived list should be unarchived successfully");
         //Arrange
         String listName = "testList";
         ListClient listClient = new ListClient();
