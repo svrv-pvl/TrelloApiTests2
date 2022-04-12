@@ -95,15 +95,45 @@ public class ListTest {
     }
 
     @Test
-    public void shouldGetErrorWhenListIdDoesNotExist(){
+    public void shouldGetErrorOnGetListWhenListIdDoesNotExist(){
         //Arrange
         String listID = "1111111111";
         //Act
-        int getListErrorCode = ListClient.getListResponseWithErrorCode(listID);
+        int getListErrorCode = ListClient.getErrorCodeWhenTryGetListWithListIdDoesNotExist(listID);
+        //Assert
+        assertEquals(getListErrorCode, 400);
+    }
+
+    @Test
+    public void shouldGetErrorOnRenameListWhenListIdDoesNotExist(){
+        //Arrange
+        String listID = "1111111111";
+        String listName = "test";
+        //Act
+        int getListErrorCode = ListClient.getErrorCodeWhenTryRenameListWithListIdDoesNotExist(listID, listName);
+        //Assert
+        assertEquals(getListErrorCode, 400);
+    }
+
+    @Test
+    public void shouldGetErrorOnArchiveListWhenListIdDoesNotExist(){
+        //Arrange
+        String listID = "1111111111";
+        //Act
+        int getListErrorCode = ListClient.getErrorCodeWhenTryArchiveListWithListIdDoesNotExist(listID);
+        //Assert
+        assertEquals(getListErrorCode, 400);
+    }
+
+    @Test
+    public void shouldGetErrorOnUnarchiveListWhenListIdDoesNotExist(){
+        //Arrange
+        String listID = "1111111111";
+        //Act
+        int getListErrorCode = ListClient.getErrorCodeWhenTryUnarchiveListWithListIdDoesNotExist(listID);
         //Assert
         assertEquals(getListErrorCode, 400);
     }
 
     //TODO tests for different names of the list
-    //TODO tests of operations with non existing list
 }

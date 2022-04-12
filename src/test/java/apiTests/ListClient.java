@@ -32,7 +32,7 @@ public class ListClient {
         return responseBody;
     }
 
-    public static int getListResponseWithErrorCode(String listId){
+    public static int getErrorCodeWhenTryGetListWithListIdDoesNotExist(String listId){
         RequestSpecification request = prepareRequest();
         String url = TrelloProductionEndpoints.getList(listId);
         Response response = request.get(url);
@@ -48,6 +48,13 @@ public class ListClient {
         return responseBody;
     }
 
+    public static int getErrorCodeWhenTryRenameListWithListIdDoesNotExist(String listId, String listNewName){
+        RequestSpecification request = prepareRequest();
+        String url = TrelloProductionEndpoints.renameList(listId, listNewName);
+        Response response = request.put(url);
+        return response.statusCode();
+    }
+
     public static UpdateListResponse archiveList(String listId){
         RequestSpecification request = prepareRequest();
         String url = TrelloProductionEndpoints.archiveList(listId);
@@ -57,6 +64,13 @@ public class ListClient {
         return responseBody;
     }
 
+    public static int getErrorCodeWhenTryArchiveListWithListIdDoesNotExist(String listId){
+        RequestSpecification request = prepareRequest();
+        String url = TrelloProductionEndpoints.archiveList(listId);
+        Response response = request.put(url);
+        return response.statusCode();
+    }
+
     public static UpdateListResponse unarchiveList(String listId){
         RequestSpecification request = prepareRequest();
         String url = TrelloProductionEndpoints.unarchiveList(listId);
@@ -64,5 +78,12 @@ public class ListClient {
         response.then().assertThat().statusCode(HttpStatus.SC_OK);
         UpdateListResponse responseBody = response.jsonPath().getObject("$", UpdateListResponse.class);
         return responseBody;
+    }
+
+    public static int getErrorCodeWhenTryUnarchiveListWithListIdDoesNotExist(String listId){
+        RequestSpecification request = prepareRequest();
+        String url = TrelloProductionEndpoints.unarchiveList(listId);
+        Response response = request.put(url);
+        return response.statusCode();
     }
 }
