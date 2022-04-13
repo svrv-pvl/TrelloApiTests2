@@ -8,12 +8,12 @@ public final class TrelloProductionEndpoints {
     private String key;
     private String token;
 
-    public TrelloProductionEndpoints(){
+    public TrelloProductionEndpoints(String connectionPropertiesFile){
         FileInputStream fis;
         Properties property = new Properties();
 
         try {
-            fis = new FileInputStream("src/test/resources/productionConnection.properties");
+            fis = new FileInputStream(connectionPropertiesFile);
             property.load(fis);
 
             baseUrl = property.getProperty("BASE_URL");

@@ -1,6 +1,7 @@
 package apiTests;
 
 import model.*;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -10,7 +11,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class ListTest {
 
     static final String BOARD_ID = "62445ffced32e95e1629e783";
-    private ListClient listClient = new ListClient();
+    private static ListClient listClient;
+
+    @BeforeAll
+    public static void connectionInitialization(){
+        String connectionPropertiesFile = System.getProperty("connectionPropertiesFile");
+        listClient = new ListClient(connectionPropertiesFile);
+    }
 
     @Test
     public void shouldCreateNewEmptyList(){

@@ -11,8 +11,8 @@ import org.apache.http.HttpStatus;
 public class ListClient {
     private TrelloProductionEndpoints trelloProductionEndpoints;
 
-    public ListClient(){
-        trelloProductionEndpoints = new TrelloProductionEndpoints();
+    public ListClient(String connectionPropertiesFile){
+        trelloProductionEndpoints = new TrelloProductionEndpoints(connectionPropertiesFile);
     }
 
     private RequestSpecification prepareRequest(){
