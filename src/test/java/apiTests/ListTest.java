@@ -10,6 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class ListTest {
 
     static final String BOARD_ID = "62445ffced32e95e1629e783";
+    private ListClient listClient = new ListClient();
 
     @Test
     public void shouldCreateNewEmptyList(){
@@ -17,85 +18,85 @@ public class ListTest {
 
         //Act
         String listNameToCreate = "fromPostman";
-        CreateListResponse responseBody = ListClient.createList(listNameToCreate, BOARD_ID);
+        CreateListResponse responseBody = listClient.createList(listNameToCreate, BOARD_ID);
         //Assert
         assertEquals(listNameToCreate, responseBody.getName());
         assertEquals(false, responseBody.getClosed());
         assertEquals(BOARD_ID, responseBody.getIdBoard());
         //TearDown
-        ListClient.archiveList(responseBody.getId());
+        listClient.archiveList(responseBody.getId());
     }
 
     @Test
     public void shouldGetList(){
         //Arrange
         String listName = "testList";
-        CreateListResponse createdPrerequisiteList = ListClient.createList(listName, BOARD_ID);
+        CreateListResponse createdPrerequisiteList = listClient.createList(listName, BOARD_ID);
         String listID = createdPrerequisiteList.getId();
         //Act
-        GetListResponse getListResponseBody = ListClient.getList(listID);
+        GetListResponse getListResponseBody = listClient.getList(listID);
         //Assert
         assertEquals(listID, getListResponseBody.getId());
         assertEquals(listName, getListResponseBody.getName());
         assertEquals(false, getListResponseBody.getClosed());
         assertEquals(BOARD_ID, getListResponseBody.getIdBoard());
         //TearDown
-        ListClient.archiveList(listID);
+        listClient.archiveList(listID);
     }
 
     @Test
     public void shouldRenameList(){
         //Arrange
         String listName = "testUpdatedList";
-        CreateListResponse createdPrerequisiteList = ListClient.createList(listName, BOARD_ID);
+        CreateListResponse createdPrerequisiteList = listClient.createList(listName, BOARD_ID);
         String listId = createdPrerequisiteList.getId();
         //Act
         String newListName = "newName";
-        UpdateListResponse renameResponseBody = ListClient.renameList(listId, newListName);
-        GetListResponse getListResponseBody = ListClient.getList(listId);
+        UpdateListResponse renameResponseBody = listClient.renameList(listId, newListName);
+        GetListResponse getListResponseBody = listClient.getList(listId);
         //Assert
         assertEquals(listId, renameResponseBody.getId());
         assertEquals(newListName, renameResponseBody.getName());
         assertEquals(newListName, getListResponseBody.getName());
         //TearDown
-        ListClient.archiveList(listId);
+        listClient.archiveList(listId);
     }
 
     @Test
     public  void  shouldArchiveList(){
         //Arrange
         String listName = "testList";
-        CreateListResponse createdPrerequisiteList = ListClient.createList(listName, BOARD_ID);
+        CreateListResponse createdPrerequisiteList = listClient.createList(listName, BOARD_ID);
         String listId = createdPrerequisiteList.getId();
         //Act
-        UpdateListResponse archivedListBody = ListClient.archiveList(listId);
-        GetListResponse getListResponseBody = ListClient.getList(listId);
+        UpdateListResponse archivedListBody = listClient.archiveList(listId);
+        GetListResponse getListResponseBody = listClient.getList(listId);
         //Assert
         assertEquals(listId, archivedListBody.getId());
         assertEquals(listName, archivedListBody.getName());
         assertEquals(true, archivedListBody.getClosed());
         assertEquals(true, getListResponseBody.getClosed());
         //TearDown
-        ListClient.archiveList(listId);
+        listClient.archiveList(listId);
     }
 
     @Test
     public  void  shouldUnarchiveList(){
         //Arrange
         String listName = "testList";
-        CreateListResponse createdPrerequisiteList = ListClient.createList(listName, BOARD_ID);
+        CreateListResponse createdPrerequisiteList = listClient.createList(listName, BOARD_ID);
         String listId = createdPrerequisiteList.getId();
-        ListClient.archiveList(listId);
+        listClient.archiveList(listId);
         //Act
-        UpdateListResponse unarchivedListBody = ListClient.unarchiveList(listId);
-        GetListResponse getListResponseBody = ListClient.getList(listId);
+        UpdateListResponse unarchivedListBody = listClient.unarchiveList(listId);
+        GetListResponse getListResponseBody = listClient.getList(listId);
         //Assert
         assertEquals(listId, unarchivedListBody.getId());
         assertEquals(listName, unarchivedListBody.getName());
         assertEquals(false, unarchivedListBody.getClosed());
         assertEquals(false, getListResponseBody.getClosed());
         //TearDown
-        ListClient.archiveList(listId);
+        listClient.archiveList(listId);
     }
 
     @Test
@@ -103,7 +104,7 @@ public class ListTest {
         //Arrange
         String listID = "1111111111";
         //Act
-        int getListErrorCode = ListClient.getErrorCodeWhenTryGetListWithListIdDoesNotExist(listID);
+        int getListErrorCode = listClient.getErrorCodeWhenTryGetListWithListIdDoesNotExist(listID);
         //Assert
         assertEquals(getListErrorCode, 400);
     }
@@ -114,7 +115,7 @@ public class ListTest {
         String listID = "1111111111";
         String listName = "test";
         //Act
-        int getListErrorCode = ListClient.getErrorCodeWhenTryRenameListWithListIdDoesNotExist(listID, listName);
+        int getListErrorCode = listClient.getErrorCodeWhenTryRenameListWithListIdDoesNotExist(listID, listName);
         //Assert
         assertEquals(getListErrorCode, 400);
     }
@@ -124,7 +125,7 @@ public class ListTest {
         //Arrange
         String listID = "1111111111";
         //Act
-        int getListErrorCode = ListClient.getErrorCodeWhenTryArchiveListWithListIdDoesNotExist(listID);
+        int getListErrorCode = listClient.getErrorCodeWhenTryArchiveListWithListIdDoesNotExist(listID);
         //Assert
         assertEquals(getListErrorCode, 400);
     }
@@ -134,7 +135,7 @@ public class ListTest {
         //Arrange
         String listID = "1111111111";
         //Act
-        int getListErrorCode = ListClient.getErrorCodeWhenTryUnarchiveListWithListIdDoesNotExist(listID);
+        int getListErrorCode = listClient.getErrorCodeWhenTryUnarchiveListWithListIdDoesNotExist(listID);
         //Assert
         assertEquals(getListErrorCode, 400);
     }
@@ -146,10 +147,10 @@ public class ListTest {
         //Arrange
 
         //Act
-        CreateListResponse responseBody = ListClient.createList(listNameToCreate, BOARD_ID);
+        CreateListResponse responseBody = listClient.createList(listNameToCreate, BOARD_ID);
         //Assert
         assertEquals(listNameToCreate, responseBody.getName());
         //TearDown
-        ListClient.archiveList(responseBody.getId());
+        listClient.archiveList(responseBody.getId());
     }
 }

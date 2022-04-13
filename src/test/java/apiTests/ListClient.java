@@ -9,80 +9,86 @@ import model.UpdateListResponse;
 import org.apache.http.HttpStatus;
 
 public class ListClient {
-    private static RequestSpecification prepareRequest(){
+    private TrelloProductionEndpoints trelloProductionEndpoints;
+
+    public ListClient(){
+        trelloProductionEndpoints = new TrelloProductionEndpoints();
+    }
+
+    private RequestSpecification prepareRequest(){
         RequestSpecification spec = RestAssured.given().header("Content-Type", "text/plain");
         return spec;
     }
 
-    public static CreateListResponse createList(String listName, String boardID){
+    public CreateListResponse createList(String listName, String boardID){
         RequestSpecification request = prepareRequest();
-        String url = TrelloProductionEndpoints.createList(listName, boardID);
+        String url = trelloProductionEndpoints.createList(listName, boardID);
         Response response = request.post(url);
         response.then().assertThat().statusCode(HttpStatus.SC_OK);
         CreateListResponse responseBody = response.jsonPath().getObject("$", CreateListResponse.class);
         return responseBody;
     }
 
-    public static GetListResponse getList(String listId){
+    public GetListResponse getList(String listId){
         RequestSpecification request = prepareRequest();
-        String url = TrelloProductionEndpoints.getList(listId);
+        String url = trelloProductionEndpoints.getList(listId);
         Response response = request.get(url);
         response.then().assertThat().statusCode(HttpStatus.SC_OK);
         GetListResponse responseBody = response.jsonPath().getObject("$", GetListResponse.class);
         return responseBody;
     }
 
-    public static int getErrorCodeWhenTryGetListWithListIdDoesNotExist(String listId){
+    public int getErrorCodeWhenTryGetListWithListIdDoesNotExist(String listId){
         RequestSpecification request = prepareRequest();
-        String url = TrelloProductionEndpoints.getList(listId);
+        String url = trelloProductionEndpoints.getList(listId);
         Response response = request.get(url);
         return response.statusCode();
     }
 
-    public static UpdateListResponse renameList(String listId, String listNewName){
+    public UpdateListResponse renameList(String listId, String listNewName){
         RequestSpecification request = prepareRequest();
-        String url = TrelloProductionEndpoints.renameList(listId, listNewName);
+        String url = trelloProductionEndpoints.renameList(listId, listNewName);
         Response response = request.put(url);
         response.then().assertThat().statusCode(HttpStatus.SC_OK);
         UpdateListResponse responseBody = response.jsonPath().getObject("$", UpdateListResponse.class);
         return responseBody;
     }
 
-    public static int getErrorCodeWhenTryRenameListWithListIdDoesNotExist(String listId, String listNewName){
+    public int getErrorCodeWhenTryRenameListWithListIdDoesNotExist(String listId, String listNewName){
         RequestSpecification request = prepareRequest();
-        String url = TrelloProductionEndpoints.renameList(listId, listNewName);
+        String url = trelloProductionEndpoints.renameList(listId, listNewName);
         Response response = request.put(url);
         return response.statusCode();
     }
 
-    public static UpdateListResponse archiveList(String listId){
+    public UpdateListResponse archiveList(String listId){
         RequestSpecification request = prepareRequest();
-        String url = TrelloProductionEndpoints.archiveList(listId);
+        String url = trelloProductionEndpoints.archiveList(listId);
         Response response = request.put(url);
         response.then().assertThat().statusCode(HttpStatus.SC_OK);
         UpdateListResponse responseBody = response.jsonPath().getObject("$", UpdateListResponse.class);
         return responseBody;
     }
 
-    public static int getErrorCodeWhenTryArchiveListWithListIdDoesNotExist(String listId){
+    public int getErrorCodeWhenTryArchiveListWithListIdDoesNotExist(String listId){
         RequestSpecification request = prepareRequest();
-        String url = TrelloProductionEndpoints.archiveList(listId);
+        String url = trelloProductionEndpoints.archiveList(listId);
         Response response = request.put(url);
         return response.statusCode();
     }
 
-    public static UpdateListResponse unarchiveList(String listId){
+    public UpdateListResponse unarchiveList(String listId){
         RequestSpecification request = prepareRequest();
-        String url = TrelloProductionEndpoints.unarchiveList(listId);
+        String url = trelloProductionEndpoints.unarchiveList(listId);
         Response response = request.put(url);
         response.then().assertThat().statusCode(HttpStatus.SC_OK);
         UpdateListResponse responseBody = response.jsonPath().getObject("$", UpdateListResponse.class);
         return responseBody;
     }
 
-    public static int getErrorCodeWhenTryUnarchiveListWithListIdDoesNotExist(String listId){
+    public int getErrorCodeWhenTryUnarchiveListWithListIdDoesNotExist(String listId){
         RequestSpecification request = prepareRequest();
-        String url = TrelloProductionEndpoints.unarchiveList(listId);
+        String url = trelloProductionEndpoints.unarchiveList(listId);
         Response response = request.put(url);
         return response.statusCode();
     }

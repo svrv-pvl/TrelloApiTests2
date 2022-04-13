@@ -1,41 +1,69 @@
 package apiTests;
 
-public final class TrelloProductionEndpoints {
-    static final String BASE_URL = "https://api.trello.com/1/";
-    static final String KEY = "999d1bdf19e2a37ef3ad781a42b456fb";
-    static final String TOKEN = "d254d2de41b17424e1d964c40a86448481f5acad0a5b0ff651d590605f80f83a";
+import java.io.*;
+import java.util.Properties;
 
-    public static String createList(String listName, String boardId){
-        String url = BASE_URL;
+public final class TrelloProductionEndpoints {
+    private String baseUrl;
+    private String key;
+    private String token;
+
+    public TrelloProductionEndpoints(){
+        FileInputStream fis;
+        Properties property = new Properties();
+
+        try {
+            fis = new FileInputStream("src/test/resources/productionConnection.properties");
+            property.load(fis);
+
+            baseUrl = property.getProperty("BASE_URL");
+            key = property.getProperty("KEY");
+            token = property.getProperty("TOKEN");
+
+        } catch (IOException e) {
+            System.err.println("ОШИБКА: Файл свойств отсуствует!");
+        }
+
+    }
+
+    public String createList(String listName, String boardId){
+        String url = baseUrl;
         url += "lists?name=" + listName + "&idBoard=" + boardId + "&";
         url += addToken();
         return url;
     }
 
-    public static String archiveList(String listId){
-        String url = BASE_URL;
+    public String archiveList(String listId){
+        String url = baseUrl;
         url += "lists/" + listId + "/closed?value=true&";
         url += addToken();
         return url;
     }
 
-    public static String unarchiveList(String listId){
-        String url = BASE_URL;
+    public String unarchiveList(String listId){
+        String url = baseUrl;
         url += "lists/" + listId + "/closed?value=false&";
         url += addToken();
         return url;
     }
 
-    public static String renameList(String listId, String newName){
-        String url = BASE_URL;
+    public String renameList(String listId, String newName){
+        String url = baseUrl;
         url += "lists/" + listId + "?name=" + newName + "&";
         url += addToken();
         return url;
     }
 
-    public static String getList(String listId){
-        String url = BASE_URL;
+    public String getList(String listId){
+        String url = baseUrl;
         url += "lists/" + listId + "?";
+        url += addToken();
+        return url;
+    }
+
+    public String getBoardListIsOn(String listId){
+        String url = baseUrl;
+        url += "lists/" + listId + "/board?";
         url += addToken();
         return url;
     }
@@ -47,7 +75,7 @@ public final class TrelloProductionEndpoints {
         return url;
     }*/
 
-    private static String addToken(){
-        return  "key=" + KEY + "&token=" + TOKEN;
+    private String addToken(){
+        return  "key=" + key + "&token=" + token;
     }
 }
