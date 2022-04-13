@@ -21,7 +21,7 @@ public final class TrelloProductionEndpoints {
             token = property.getProperty("TOKEN");
 
         } catch (IOException e) {
-            System.err.println("ОШИБКА: Файл свойств отсуствует!");
+            System.err.println("[ERROR] No property file by the path from the argument");
         }
 
     }
