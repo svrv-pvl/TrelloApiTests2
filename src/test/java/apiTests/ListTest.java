@@ -34,6 +34,7 @@ public class ListTest {
         listClient.archiveList(responseBody.getId());
     }
 
+    //TODO Try to send get a few times
     @Test
     public void shouldGetList(){
         //Arrange

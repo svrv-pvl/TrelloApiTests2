@@ -31,6 +31,7 @@ public class BoardTest {
         //TODO Add tear down
     }
 
+    //TODO Try to send get a few times
     @Test
     public void shouldGetBoard(){
         //Arrange
