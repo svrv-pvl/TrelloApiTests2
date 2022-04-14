@@ -9,7 +9,7 @@ import model.GetListResponse;
 import org.apache.http.HttpStatus;
 
 public class BoardClient {
-    private TrelloProductionEndpoints trelloProductionEndpoints;
+    private final TrelloProductionEndpoints trelloProductionEndpoints;
 
     public BoardClient(String connectionPropertiesFile) {
         trelloProductionEndpoints = new TrelloProductionEndpoints(connectionPropertiesFile);

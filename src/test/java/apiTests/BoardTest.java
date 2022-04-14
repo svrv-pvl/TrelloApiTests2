@@ -32,6 +32,7 @@ public class BoardTest {
     }
 
     //TODO Try to send get a few times
+    //TODO Try to get board which is not exist
     @Test
     public void shouldGetBoard(){
         //Arrange

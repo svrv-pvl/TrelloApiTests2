@@ -9,7 +9,7 @@ import model.UpdateListResponse;
 import org.apache.http.HttpStatus;
 
 public class ListClient {
-    private TrelloProductionEndpoints trelloProductionEndpoints;
+    private final TrelloProductionEndpoints trelloProductionEndpoints;
 
     public ListClient(String connectionPropertiesFile){
         trelloProductionEndpoints = new TrelloProductionEndpoints(connectionPropertiesFile);
