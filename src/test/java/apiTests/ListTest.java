@@ -15,8 +15,6 @@ public class ListTest {
 
     @BeforeAll
     public static void connectionInitialization(){
-
-
         String connectionPropertiesFile = System.getProperty("connectionPropertiesFile");
         listClient = new ListClient(connectionPropertiesFile);
     }

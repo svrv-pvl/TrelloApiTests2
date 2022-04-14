@@ -91,6 +91,13 @@ public final class TrelloProductionEndpoints {
         return url;
     }
 
+    public String createBoard(String boardName){
+        String url = baseUrl;
+        url += "boards?name=" + boardName + "&";
+        url += addToken();
+        return url;
+    }
+
     private String addToken(){
         return  "key=" + key + "&token=" + token;
     }
