@@ -9,6 +9,7 @@ public class GetBoardResponse {
     private String id;
     private String name;
     private String desc;
+    private String descData;
     private Boolean closed;
     private String idOrganization;
     private String idEnterprise;
