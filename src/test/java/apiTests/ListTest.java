@@ -170,6 +170,6 @@ public class ListTest {
 
     @AfterAll
     public static void deleteTestBoard(){
-        //TODO Need to delete test board
+        boardClient.deleteBoard(boardId);
     }
 }

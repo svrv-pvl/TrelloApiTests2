@@ -98,6 +98,13 @@ public final class TrelloProductionEndpoints {
         return url;
     }
 
+    public String deleteBoard(String boardId){
+        String url = baseUrl;
+        url += "boards/" + boardId + "?";
+        url += addToken();
+        return url;
+    }
+
     private String addToken(){
         return  "key=" + key + "&token=" + token;
     }
