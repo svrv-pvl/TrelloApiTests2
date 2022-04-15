@@ -1,12 +1,9 @@
 package apiTests;
 
-import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import model.CreateBoardResponse;
 import model.GetBoardResponse;
-import model.GetListResponse;
-import model.RestConnector;
 import org.apache.http.HttpStatus;
 
 public class BoardClient extends RestConnector {

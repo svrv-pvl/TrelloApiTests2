@@ -1,4 +1,4 @@
-package model;
+package apiTests;
 
 import apiTests.TrelloProductionEndpoints;
 import io.restassured.RestAssured;

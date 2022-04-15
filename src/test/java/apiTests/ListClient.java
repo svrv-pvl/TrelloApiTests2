@@ -1,11 +1,9 @@
 package apiTests;
 
-import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import model.CreateListResponse;
 import model.GetListResponse;
-import model.RestConnector;
 import model.UpdateListResponse;
 import org.apache.http.HttpStatus;
 
