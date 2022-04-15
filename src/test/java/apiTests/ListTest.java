@@ -2,15 +2,13 @@ package apiTests;
 
 import io.restassured.specification.RequestSpecification;
 import model.*;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.RepeatedTest;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@Timeout(2)
 public class ListTest {
 
     private static String boardId;
@@ -28,7 +26,6 @@ public class ListTest {
     }
 
     //TODO Add tests for headers
-    //TODO Add timeouts
     //TODO Add tests of incorrect url parameters
 
     @Test
@@ -174,6 +171,7 @@ public class ListTest {
     }
 
     @Test
+    @Timeout(5)
     public void shouldMoveListToOtherBoard(){
         //Arrange
         String secondaryBoardName = "secBoard";
@@ -193,6 +191,7 @@ public class ListTest {
     }
 
     @Test
+    @Timeout(5)
     public void shouldReturn404WhenGetDeletedList(){
         //Arrange
         String listName = "testList";
