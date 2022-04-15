@@ -4,6 +4,7 @@ import io.restassured.specification.RequestSpecification;
 import model.*;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -45,8 +46,7 @@ public class ListTest {
         listClient.archiveList(responseBody.getId());
     }
 
-    //TODO Try to send get a few times
-    @Test
+    @RepeatedTest(3)
     public void shouldGetList(){
         //Arrange
         String listName = "testList";

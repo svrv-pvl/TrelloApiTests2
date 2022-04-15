@@ -3,9 +3,11 @@ package apiTests;
 import model.CreateBoardResponse;
 import model.GetBoardResponse;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 
 public class BoardTest {
@@ -32,16 +34,15 @@ public class BoardTest {
         assertEquals(boardName, createBoardResponseBody.getName());
         assertEquals(createBoardResponseBody.getId(), getBoardResponseBody.getId());
         assertEquals("", createBoardResponseBody.getDesc());
-        assertEquals(null, createBoardResponseBody.getDescData());
+        assertNull(createBoardResponseBody.getDescData());
         assertEquals(false, createBoardResponseBody.getPinned());
         assertEquals("private", createBoardResponseBody.getPrefs().getPermissionLevel());
         //Tear down
         boardClient.deleteBoard(createBoardResponseBody.getId());
     }
 
-    //TODO Try to send get a few times
     //TODO Try to get board which is not exist
-    @Test
+    @RepeatedTest(3)
     public void shouldGetBoard(){
         //Arrange
         String boardName = "testBoard";
