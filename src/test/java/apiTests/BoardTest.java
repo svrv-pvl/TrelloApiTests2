@@ -74,6 +74,21 @@ public class BoardTest {
         boardClient.deleteBoard(createBoardResponseBody.getId());
     }
 
-
+    @Test
+    public void shouldRenameBoard(){
+        //Arrange
+        String boardName = "someBoard";
+        CreateBoardResponse createBoardResponseBody = boardClient.createBoard(boardName);
+        String boardId = createBoardResponseBody.getId();
+        //Act
+        String newBoardName ="newName";
+        GetBoardResponse renameBoardResponseBody = boardClient.renameBoard(boardId, newBoardName);
+        GetBoardResponse getBoardResponseBody = boardClient.getBoard(boardId);
+        //Assert
+        assertEquals(newBoardName, renameBoardResponseBody.getName());
+        assertEquals(newBoardName, getBoardResponseBody.getName());
+        //Tear down
+        boardClient.deleteBoard(boardId);
+    }
     //TODO check that deleted board cannot be retrieved
 }

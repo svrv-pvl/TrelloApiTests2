@@ -45,81 +45,102 @@ public final class TrelloProductionEndpoints {
     public String createList(String listName, String boardId){
         String url = baseUrl;
         url += "lists?name=" + listName + "&idBoard=" + boardId + "&";
-        url += addToken();
+        url += getToken();
         return url;
     }
 
     public String archiveList(String listId){
         String url = baseUrl;
         url += "lists/" + listId + "/closed?value=true&";
-        url += addToken();
+        url += getToken();
         return url;
     }
 
     public String unarchiveList(String listId){
         String url = baseUrl;
         url += "lists/" + listId + "/closed?value=false&";
-        url += addToken();
+        url += getToken();
         return url;
     }
 
     public String renameList(String listId, String newName){
         String url = baseUrl;
         url += "lists/" + listId + "?name=" + newName + "&";
-        url += addToken();
+        url += getToken();
         return url;
     }
 
     public String getList(String listId){
         String url = baseUrl;
         url += "lists/" + listId + "?";
-        url += addToken();
+        url += getToken();
         return url;
     }
 
     public String moveList(String listId, String newBoardId){
         String url = baseUrl;
         url += "lists/" + listId + "/idBoard?value=" + newBoardId + "&";
-        url += addToken();
+        url += getToken();
         return url;
     }
 
     public String getBoardListIsOn(String listId){
         String url = baseUrl;
         url += "lists/" + listId + "/board?";
-        url += addToken();
+        url += getToken();
         return url;
     }
 
     /*public static String getAllListsOfBoard(){
         String url = BASE_URL;
         url += "boards/" + BOARD_ID + "/lists?";
-        url += addToken();
+        url += getToken();
         return url;
     }*/
 
     public String getBoard(String boardId){
         String url = baseUrl;
         url += "boards/" + boardId + "?";
-        url += addToken();
+        url += getToken();
         return url;
     }
 
     public String createBoard(String boardName){
         String url = baseUrl;
         url += "boards?name=" + boardName + "&";
-        url += addToken();
+        url += getToken();
         return url;
     }
 
     public String deleteBoard(String boardId){
         String url = baseUrl;
         url += "boards/" + boardId + "?";
-        url += addToken();
+        url += getToken();
         return url;
     }
 
-    private String addToken(){
+    private String updateBoard(String boardId, String[] parameter, String[] value){
+        String url = baseUrl;
+        url += "boards/" + boardId + "?";
+        for (int i = 0; i < parameter.length; i++){
+            url += parameter[i] + "=" + value[i];
+        }
+        url += "&" + getToken();
+        return url;
+    }
+
+    private String updateBoard(String boardId, String parameter, String value){
+        String url = baseUrl;
+        url += "boards/" + boardId + "?" + parameter + "=" + value + "&";
+        url += getToken();
+        return url;
+    }
+
+    public  String renameBoard(String boardId, String newBoardName){
+        return updateBoard(boardId, "name", newBoardName);
+    }
+
+    private String getToken(){
         return  "key=" + key + "&token=" + token;
     }
 }

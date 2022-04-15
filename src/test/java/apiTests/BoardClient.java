@@ -39,4 +39,12 @@ public class BoardClient extends RestConnector {
         assertGeneralHeaders(response);
         return response.statusCode();
     }
+
+    public GetBoardResponse renameBoard(String boardId, String newBoardName) {
+        RequestSpecification request = prepareRequest();
+        String url = trelloProductionEndpoints.renameBoard(boardId, newBoardName);
+        Response response = request.put(url);
+        response.then().assertThat().statusCode(HttpStatus.SC_OK);
+        return response.getBody().as(GetBoardResponse.class);
+    }
 }
