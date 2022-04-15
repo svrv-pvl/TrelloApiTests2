@@ -192,7 +192,23 @@ public class ListTest {
         boardClient.deleteBoard(secondaryBoardId);
     }
 
-    //TODO check that deleted lists cannot be retrieved
+    @Test
+    public void shouldReturn404WhenGetDeletedList(){
+        //Arrange
+        String listName = "testList";
+        CreateListResponse createListResponseBody = listClient.createList(listName, boardId);
+        String listId = createListResponseBody.getId();
+        String secondaryBoardName = "secBoard";
+        CreateBoardResponse createBoardResponseBody = boardClient.createBoard(secondaryBoardName);
+        String secondaryBoardId = createBoardResponseBody.getId();
+        //Act
+        listClient.moveList(listId,secondaryBoardId);
+        boardClient.deleteBoard(secondaryBoardId);
+        int getListResponseCode = listClient.getErrorCodeWhenTryGetListWithListIdDoesNotExist(listId);
+        //Assert
+        assertEquals(404, getListResponseCode);
+    }
+
 
     @AfterAll
     public static void deleteTestBoard(){
