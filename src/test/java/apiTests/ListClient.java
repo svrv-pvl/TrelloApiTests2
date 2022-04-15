@@ -20,11 +20,16 @@ public class ListClient {
         return spec;
     }
 
+    private void assertGeneralHeader(Response response){
+        response.then().header("X-Trello-Environment", trelloProductionEndpoints.getEnvironmentName());
+    }
+
     public CreateListResponse createList(String listName, String boardID){
         RequestSpecification request = prepareRequest();
         String url = trelloProductionEndpoints.createList(listName, boardID);
         Response response = request.post(url);
         response.then().assertThat().statusCode(HttpStatus.SC_OK);
+        assertGeneralHeader(response);
         CreateListResponse responseBody = response.jsonPath().getObject("$", CreateListResponse.class);
         return responseBody;
     }
