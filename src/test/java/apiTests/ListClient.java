@@ -5,23 +5,13 @@ import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import model.CreateListResponse;
 import model.GetListResponse;
+import model.RestConnector;
 import model.UpdateListResponse;
 import org.apache.http.HttpStatus;
 
-public class ListClient {
-    private final TrelloProductionEndpoints trelloProductionEndpoints;
-
+public class ListClient extends RestConnector {
     public ListClient(String connectionPropertiesFile){
         trelloProductionEndpoints = new TrelloProductionEndpoints(connectionPropertiesFile);
-    }
-
-    private RequestSpecification prepareRequest(){
-        RequestSpecification spec = RestAssured.given().header("Content-Type", "text/plain");
-        return spec;
-    }
-
-    private void assertGeneralHeader(Response response){
-        response.then().header("X-Trello-Environment", trelloProductionEndpoints.getEnvironmentName());
     }
 
     public CreateListResponse createList(String listName, String boardID){

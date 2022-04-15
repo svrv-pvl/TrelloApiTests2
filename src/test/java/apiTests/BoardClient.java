@@ -6,18 +6,12 @@ import io.restassured.specification.RequestSpecification;
 import model.CreateBoardResponse;
 import model.GetBoardResponse;
 import model.GetListResponse;
+import model.RestConnector;
 import org.apache.http.HttpStatus;
 
-public class BoardClient {
-    private final TrelloProductionEndpoints trelloProductionEndpoints;
-
+public class BoardClient extends RestConnector {
     public BoardClient(String connectionPropertiesFile) {
         trelloProductionEndpoints = new TrelloProductionEndpoints(connectionPropertiesFile);
-    }
-
-    private RequestSpecification prepareRequest() {
-        RequestSpecification spec = RestAssured.given().header("Content-Type", "text/plain");
-        return spec;
     }
 
     public GetBoardResponse getBoard(String boardID) {
