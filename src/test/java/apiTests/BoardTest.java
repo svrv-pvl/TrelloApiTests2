@@ -17,6 +17,10 @@ public class BoardTest {
         boardClient = new BoardClient(connectionPropertiesFile);
     }
 
+    //TODO Add tests for headers
+    //TODO Add timeouts
+    //TODO Add tests of incorrect url parameters
+
     @Test
     public void shouldCreateBoard(){
         //Arrange
