@@ -1,6 +1,5 @@
 package apiTests;
 
-import apiTests.TrelloProductionEndpoints;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
@@ -13,7 +12,7 @@ public class RestConnector {
         return spec;
     }
 
-    protected void assertGeneralHeader(Response response){
+    protected void assertGeneralHeaders(Response response){
         response.then().header("X-Trello-Environment", trelloProductionEndpoints.getEnvironmentName());
     }
 }
