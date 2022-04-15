@@ -42,7 +42,7 @@ public class BoardTest {
     }
 
     //TODO Try to get board which is not exist
-    @RepeatedTest(3)
+    @Test
     public void shouldGetBoard(){
         //Arrange
         String boardName = "testBoard";
@@ -53,7 +53,24 @@ public class BoardTest {
         //Assert
         assertEquals(boardId, getBoardResponseBody.getId());
         assertEquals(boardName, getBoardResponseBody.getName());
+        //Tear down
+        boardClient.deleteBoard(createBoardResponseBody.getId());
+    }
 
+    @Test
+    public void shouldBeSameResultWhenGetBoardFewTimes(){
+        //Arrange
+        String boardName = "testBoard";
+        CreateBoardResponse createBoardResponseBody = boardClient.createBoard(boardName);
+        //Act
+        String boardId = createBoardResponseBody.getId();
+        GetBoardResponse getBoardResponseBody = boardClient.getBoard(boardId);
+        GetBoardResponse secondGetBoardResponseBody = boardClient.getBoard(boardId);
+        //Assert
+        assertEquals(boardId, getBoardResponseBody.getId());
+        assertEquals(boardName, getBoardResponseBody.getName());
+        assertEquals(boardId, secondGetBoardResponseBody.getId());
+        assertEquals(boardName, secondGetBoardResponseBody.getName());
         //Tear down
         boardClient.deleteBoard(createBoardResponseBody.getId());
     }

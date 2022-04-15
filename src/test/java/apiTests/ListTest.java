@@ -43,7 +43,7 @@ public class ListTest {
         listClient.archiveList(responseBody.getId());
     }
 
-    @RepeatedTest(3)
+    @Test
     public void shouldGetList(){
         //Arrange
         String listName = "testList";
@@ -56,6 +56,28 @@ public class ListTest {
         assertEquals(listName, getListResponseBody.getName());
         assertEquals(false, getListResponseBody.getClosed());
         assertEquals(boardId, getListResponseBody.getIdBoard());
+        //TearDown
+        listClient.archiveList(listID);
+    }
+
+    @Test
+    public void shouldBeSameResultWhenGetListFewTimes(){
+        //Arrange
+        String listName = "testList";
+        CreateListResponse createdPrerequisiteList = listClient.createList(listName, boardId);
+        String listID = createdPrerequisiteList.getId();
+        //Act
+        GetListResponse getListResponseBody = listClient.getList(listID);
+        GetListResponse secondGetListResponseBody = listClient.getList(listID);
+        //Assert
+        assertEquals(listID, getListResponseBody.getId());
+        assertEquals(listName, getListResponseBody.getName());
+        assertEquals(false, getListResponseBody.getClosed());
+        assertEquals(boardId, getListResponseBody.getIdBoard());
+        assertEquals(listID, secondGetListResponseBody.getId());
+        assertEquals(listName, secondGetListResponseBody.getName());
+        assertEquals(false, secondGetListResponseBody.getClosed());
+        assertEquals(boardId, secondGetListResponseBody.getIdBoard());
         //TearDown
         listClient.archiveList(listID);
     }
