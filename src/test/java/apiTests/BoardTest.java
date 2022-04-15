@@ -56,4 +56,7 @@ public class BoardTest {
         //Tear down
         boardClient.deleteBoard(createBoardResponseBody.getId());
     }
+
+
+    //TODO check that deleted board cannot be retrieved
 }

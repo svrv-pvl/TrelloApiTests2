@@ -1,5 +1,6 @@
 package apiTests;
 
+import io.restassured.specification.RequestSpecification;
 import model.*;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -171,6 +172,27 @@ public class ListTest {
         //TearDown
         listClient.archiveList(responseBody.getId());
     }
+
+    @Test
+    public void shouldMoveListToOtherBoard(){
+        //Arrange
+        String secondaryBoardName = "secBoard";
+        CreateBoardResponse secondaryBoardResponseBody = boardClient.createBoard(secondaryBoardName);
+        String secondaryBoardId = secondaryBoardResponseBody.getId();
+        String listName = "testList";
+        CreateListResponse createListResponseBody = listClient.createList(listName, boardId);
+        String listId = createListResponseBody.getId();
+        //Act
+        GetListResponse moveListResponseBody = listClient.moveList(listId, secondaryBoardId);
+        GetListResponse getListResponse = listClient.getList(listId);
+        //Assert
+        assertEquals(secondaryBoardId, moveListResponseBody.getIdBoard());
+        assertEquals(secondaryBoardId, getListResponse.getIdBoard());
+        //Tear down
+        boardClient.deleteBoard(secondaryBoardId);
+    }
+
+    //TODO check that deleted lists cannot be retrieved
 
     @AfterAll
     public static void deleteTestBoard(){

@@ -70,6 +70,13 @@ public final class TrelloProductionEndpoints {
         return url;
     }
 
+    public String moveList(String listId, String newBoardId){
+        String url = baseUrl;
+        url += "lists/" + listId + "/idBoard?value=" + newBoardId + "&";
+        url += addToken();
+        return url;
+    }
+
     public String getBoardListIsOn(String listId){
         String url = baseUrl;
         url += "lists/" + listId + "/board?";

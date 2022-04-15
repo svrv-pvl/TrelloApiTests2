@@ -70,6 +70,15 @@ public class ListClient {
         return responseBody;
     }
 
+    public GetListResponse moveList(String listId, String newBoardName){
+        RequestSpecification request = prepareRequest();
+        String url = trelloProductionEndpoints.moveList(listId, newBoardName);
+        Response response = request.put(url);
+        response.then().assertThat().statusCode(HttpStatus.SC_OK);
+        GetListResponse responseBody = response.jsonPath().getObject("$", GetListResponse.class);
+        return responseBody;
+    }
+
     public int getErrorCodeWhenTryArchiveListWithListIdDoesNotExist(String listId){
         RequestSpecification request = prepareRequest();
         String url = trelloProductionEndpoints.archiveList(listId);
