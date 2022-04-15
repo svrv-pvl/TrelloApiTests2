@@ -27,8 +27,12 @@ public class BoardTest {
         //Assert
         assertEquals(boardName, createBoardResponseBody.getName());
         assertEquals(createBoardResponseBody.getId(), getBoardResponseBody.getId());
-
-        //TODO Add tear down
+        assertEquals("", createBoardResponseBody.getDesc());
+        assertEquals(null, createBoardResponseBody.getDescData());
+        assertEquals(false, createBoardResponseBody.getPinned());
+        assertEquals("private", createBoardResponseBody.getPrefs().getPermissionLevel());
+        //Tear down
+        boardClient.deleteBoard(createBoardResponseBody.getId());
     }
 
     //TODO Try to send get a few times
@@ -45,6 +49,7 @@ public class BoardTest {
         assertEquals(boardId, getBoardResponseBody.getId());
         assertEquals(boardName, getBoardResponseBody.getName());
 
-        //TODO Add tear down
+        //Tear down
+        boardClient.deleteBoard(createBoardResponseBody.getId());
     }
 }
