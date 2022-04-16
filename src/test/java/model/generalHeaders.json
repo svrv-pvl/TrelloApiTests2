@@ -1,0 +1,19 @@
+
+  [
+    {
+      "name" : "X-Dns-Prefetch-Control",
+      "value" : "off"
+    },
+    {
+      "name" : "X-Frame-Options",
+      "value" : "DENY"
+    },
+    {
+      "name" : "X-Download-Options",
+      "value" : "noopen"
+    },
+    {
+      "name" : "X-Permitted-Cross-Domain-Policies",
+      "value" : "none"
+    }
+  ]

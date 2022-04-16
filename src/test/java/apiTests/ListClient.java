@@ -1,5 +1,6 @@
 package apiTests;
 
+import io.restassured.http.Headers;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import model.CreateListResponse;
@@ -98,5 +99,12 @@ public class ListClient extends RestConnector {
         String url = trelloProductionEndpoints.unarchiveList(listId);
         Response response = request.put(url);
         return response.statusCode();
+    }
+
+    public Headers getHeadersAfterGetList(String listId){
+        RequestSpecification request = prepareRequest();
+        String url = trelloProductionEndpoints.getList(listId);
+        Response response = request.get(url);
+        return response.getHeaders();
     }
 }
