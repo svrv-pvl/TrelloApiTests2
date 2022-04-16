@@ -15,5 +15,97 @@
     {
       "name" : "X-Permitted-Cross-Domain-Policies",
       "value" : "none"
+    },
+    {
+      "name" : "Referrer-Policy",
+      "value" : "strict-origin-when-cross-origin"
+    },
+    {
+      "name" : "Surrogate-Control",
+      "value" : "no-store"
+    },
+    {
+      "name" : "Cache-Control",
+      "value" : "max-age=0, must-revalidate, no-cache, no-store"
+    },
+    {
+      "name" : "Pragma",
+      "value" : "no-cache"
+    },
+    {
+      "name" : "Expires",
+      "value" : "Thu, 01 Jan 1970 00:00:00"
+    },
+    {
+      "name" : "X-Trello-Environment",
+      "value" : "Production"
+    },
+    {
+      "name" : "Access-Control-Allow-Origin",
+      "value" : "*"
+    },
+    {
+      "name" : "Access-Control-Allow-Methods",
+      "value" : "GET, PUT, POST, DELETE"
+    },
+    {
+      "name" : "Access-Control-Allow-Headers",
+      "value" : "Authorization, Accept, Content-Type"
+    },
+    {
+      "name" : "Access-Control-Expose-Headers",
+      "value" : "x-rate-limit-api-key-interval-ms, x-rate-limit-api-key-max, x-rate-limit-api-key-remaining, x-rate-limit-api-token-interval-ms, x-rate-limit-api-token-max, x-rate-limit-api-token-remaining"
+    },
+    {
+    "name" : "X-Rate-Limit-Api-Token-Interval-Ms",
+    "value" : "10000"
+    },
+    {
+      "name" : "X-Rate-Limit-Api-Token-Max",
+      "value" : "100"
+    },
+    {
+      "name" : "X-Rate-Limit-Api-Key-Interval-Ms",
+      "value" : "10000"
+    },
+    {
+      "name" : "X-Rate-Limit-Api-Key-Max",
+      "value" : "300"
+    },
+    {
+      "name" : "X-Rate-Limit-Member-Interval-Ms",
+      "value" : "10000"
+    },
+    {
+      "name" : "Content-Type",
+      "value" : "application/json; charset=utf-8"
+    },
+    {
+      "name" : "Content-Encoding",
+      "value" : "gzip"
+    },
+    {
+      "name" : "X-Envoy-Upstream-Service-Time",
+      "value" : "121"
+    },
+    {
+      "name" : "Strict-Transport-Security",
+      "value" : "max-age=63072000; preload"
+    },
+    {
+      "name" : "X-Content-Type-Options",
+      "value" : "nosniff"
+    },
+    {
+      "name" : "X-Xss-Protection",
+      "value" : "1; mode=block"
+    },
+    {
+      "name" : "Server",
+      "value" : "globaledge-envoy"
+    },
+    {
+      "name" : "Transfer-Encoding",
+      "value" : "chunked"
     }
   ]
