@@ -25,16 +25,8 @@
       "value" : "no-store"
     },
     {
-      "name" : "Cache-Control",
-      "value" : "max-age=0, must-revalidate, no-cache, no-store"
-    },
-    {
       "name" : "Pragma",
       "value" : "no-cache"
-    },
-    {
-      "name" : "Expires",
-      "value" : "Thu, 01 Jan 1970 00:00:00"
     },
     {
       "name" : "X-Trello-Environment",
@@ -57,38 +49,6 @@
       "value" : "x-rate-limit-api-key-interval-ms, x-rate-limit-api-key-max, x-rate-limit-api-key-remaining, x-rate-limit-api-token-interval-ms, x-rate-limit-api-token-max, x-rate-limit-api-token-remaining"
     },
     {
-    "name" : "X-Rate-Limit-Api-Token-Interval-Ms",
-    "value" : "10000"
-    },
-    {
-      "name" : "X-Rate-Limit-Api-Token-Max",
-      "value" : "100"
-    },
-    {
-      "name" : "X-Rate-Limit-Api-Key-Interval-Ms",
-      "value" : "10000"
-    },
-    {
-      "name" : "X-Rate-Limit-Api-Key-Max",
-      "value" : "300"
-    },
-    {
-      "name" : "X-Rate-Limit-Member-Interval-Ms",
-      "value" : "10000"
-    },
-    {
-      "name" : "Content-Type",
-      "value" : "application/json; charset=utf-8"
-    },
-    {
-      "name" : "Content-Encoding",
-      "value" : "gzip"
-    },
-    {
-      "name" : "X-Envoy-Upstream-Service-Time",
-      "value" : "121"
-    },
-    {
       "name" : "Strict-Transport-Security",
       "value" : "max-age=63072000; preload"
     },
@@ -103,9 +63,5 @@
     {
       "name" : "Server",
       "value" : "globaledge-envoy"
-    },
-    {
-      "name" : "Transfer-Encoding",
-      "value" : "chunked"
     }
   ]

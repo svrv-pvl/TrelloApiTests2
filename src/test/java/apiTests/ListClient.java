@@ -107,4 +107,11 @@ public class ListClient extends RestConnector {
         Response response = request.get(url);
         return response.getHeaders();
     }
+
+    public Headers getHeadersAfterCreateList(String listName, String boardId){
+        RequestSpecification request = prepareRequest();
+        String url = trelloProductionEndpoints.createList(listName, boardId);
+        Response response = request.get(url);
+        return response.getHeaders();
+    }
 }
