@@ -93,4 +93,12 @@ public class BoardClient extends RestConnector {
         response.then().assertThat().statusCode(HttpStatus.SC_OK);
         return response;
     }
+
+    public Headers returnHeadersOnDeleteBoard(String boardId){
+        RequestSpecification request = prepareRequest();
+        String url = trelloProductionEndpoints.deleteBoard(boardId);
+        Response response = request.delete(url);
+        response.then().assertThat().statusCode(HttpStatus.SC_OK);
+        return response.getHeaders();
+    }
 }

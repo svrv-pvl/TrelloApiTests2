@@ -9,6 +9,8 @@ import model.UnarchiveBoardResponse;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import java.util.concurrent.TimeUnit;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
@@ -196,6 +198,24 @@ public class BoardTest extends TrelloTest{
         }
         //Tear down
         boardClient.deleteBoard(boardId);
+    }
+
+    @Test
+    public void shouldReturnCorrectHeadersOnDeleteBoard(){
+        //Arrange
+        String boardName = "testBoard";
+        CreateBoardResponse createBoardResponseBody = boardClient.createBoard(boardName);
+        String boardId = createBoardResponseBody.getId();
+        //Act
+        GetBoardResponse getBoardResponse = boardClient.getBoard(boardId);
+        Headers deleteBoardHeaders = boardClient.returnHeadersOnDeleteBoard(boardId);
+        //Assert
+        for(Header header: expectedGeneralHeaders){
+            assertEquals(expectedGeneralHeaders.get(header.getName()), deleteBoardHeaders.get(header.getName()));
+        }
+        for(Header header: expectedHeadersFor200){
+            assertEquals(expectedHeadersFor200.get(header.getName()), deleteBoardHeaders.get(header.getName()));
+        }
     }
 
 
