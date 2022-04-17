@@ -236,5 +236,22 @@ public class BoardTest extends TrelloTest{
         boardClient.deleteBoard(boardId);
     }
 
+    @Test
+    public void shouldReturnCorrectHeadersOnGetBoardWhichDoesNotExist(){
+        //Arrange
+
+        //Act
+        String incorrectBoardId = "625c21a1919dec766915bc11";
+        Headers getIncorrectBoardHeaders = boardClient.returnHeadersOnGetBoardWhichDoesNotExist(incorrectBoardId);
+        //Assert
+        for(Header header: expectedGeneralHeaders){
+            assertEquals(expectedGeneralHeaders.get(header.getName()), getIncorrectBoardHeaders.get(header.getName()));
+        }
+        for(Header header: expectedHeadersFor404){
+            assertEquals(expectedHeadersFor404.get(header.getName()), getIncorrectBoardHeaders.get(header.getName()));
+        }
+        //Tear down
+    }
+
     //TODO Update all possible fields of the board simultaneously
 }
