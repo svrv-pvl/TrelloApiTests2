@@ -33,8 +33,8 @@ public class ListTest extends TrelloTest{
         boardId = boardResponseBody.getId();
 
         expectedGeneralHeaders = readHeaders("src/test/java/model/generalHeaders.json");
-        expectedHeadersFor404 = readHeaders("src/test/java/model/listHeadersFor404.json");
-        expectedHeadersFor200 = readHeaders("src/test/java/model/listHeadersFor200.json");
+        expectedHeadersFor404 = readHeaders("src/test/java/model/additionalHeadersFor404.json");
+        expectedHeadersFor200 = readHeaders("src/test/java/model/additionalHeadersFor200.json");
     }
 
     //TODO Add tests of incorrect url parameters
