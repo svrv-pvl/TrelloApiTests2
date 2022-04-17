@@ -253,5 +253,6 @@ public class BoardTest extends TrelloTest{
         //Tear down
     }
 
+    //TODO Add headers check on 400
     //TODO Update all possible fields of the board simultaneously
 }
