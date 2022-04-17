@@ -16,12 +16,11 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Timeout(2)
-public class ListTest {
+public class ListTest extends TrelloTest{
 
     private static String boardId;
     private static ListClient listClient;
     private static BoardClient boardClient;
-    private static Headers expectedGeneralHeaders;
     private static Headers expectedHeadersFor404;
     private static Headers expectedHeadersFor200;
 
@@ -41,25 +40,6 @@ public class ListTest {
 
     //TODO Add tests of incorrect url parameters
     //TODO Add tests of all possible fields on get list
-
-    private static Headers readHeaders(String filePath){
-        Headers readHeaders = new Headers();
-        FileInputStream fis;
-        ObjectMapper mapper = new ObjectMapper();
-        try{
-            fis = new FileInputStream(filePath);
-            List<myHeader> tempMyHeaderList = mapper.readValue(fis, mapper.getTypeFactory().constructCollectionType(List.class, myHeader.class));
-            List<Header> headerList = new ArrayList<>();
-            for(myHeader header: tempMyHeaderList){
-                Header h = new Header(header.getName(), header.getValue());
-                headerList.add(h);
-            }
-            readHeaders = new Headers(headerList);
-        } catch (IOException e) {
-            System.out.println("[ERROR] Cannot read headers file");
-        }
-        return readHeaders;
-    }
 
     @Test
     public void shouldCreateNewEmptyList(){
