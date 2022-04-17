@@ -31,10 +31,6 @@ public class ListTest extends TrelloTest{
         String boardName = "list_test_board";
         GetBoardResponse boardResponseBody = boardClient.createBoard(boardName);
         boardId = boardResponseBody.getId();
-
-        expectedGeneralHeaders = readHeaders("src/test/java/model/generalHeaders.json");
-        expectedHeadersFor404 = readHeaders("src/test/java/model/additionalHeadersFor404.json");
-        expectedHeadersFor200 = readHeaders("src/test/java/model/additionalHeadersFor200.json");
     }
 
     //TODO Add tests of incorrect url parameters

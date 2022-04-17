@@ -33,4 +33,10 @@ public class TrelloTest {
         }
         return readHeaders;
     }
+
+    public TrelloTest(){
+        expectedGeneralHeaders = readHeaders("src/test/java/model/generalHeaders.json");
+        expectedHeadersFor404 = readHeaders("src/test/java/model/additionalHeadersFor404.json");
+        expectedHeadersFor200 = readHeaders("src/test/java/model/additionalHeadersFor200.json");
+    }
 }

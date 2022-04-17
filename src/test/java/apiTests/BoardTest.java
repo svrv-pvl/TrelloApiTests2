@@ -19,10 +19,6 @@ public class BoardTest extends TrelloTest{
     public static void connectionInitialization(){
         String connectionPropertiesFile = System.getProperty("connectionPropertiesFile");
         boardClient = new BoardClient(connectionPropertiesFile);
-
-        expectedGeneralHeaders = readHeaders("src/test/java/model/generalHeaders.json");
-        expectedHeadersFor404 = readHeaders("src/test/java/model/additionalHeadersFor404.json");
-        expectedHeadersFor200 = readHeaders("src/test/java/model/additionalHeadersFor200.json");
     }
 
     //TODO Add tests for headers
