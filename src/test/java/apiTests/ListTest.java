@@ -40,6 +40,7 @@ public class ListTest {
     }
 
     //TODO Add tests of incorrect url parameters
+    //TODO Add tests of all possible fields on get list
 
     private static Headers readHeaders(String filePath){
         Headers readHeaders = new Headers();
