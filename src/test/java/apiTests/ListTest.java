@@ -260,7 +260,6 @@ public class ListTest {
     }
 
     @Test
-    @Timeout(7)
     public void shouldReturnCorrectHeadersOnGetList(){
         //Arrange
         String listName = "testList";
@@ -275,7 +274,6 @@ public class ListTest {
     }
 
     @Test
-    @Timeout(7)
     public void shouldReturnCorrectHeadersOnCreateList(){
         //Arrange
 
@@ -285,6 +283,21 @@ public class ListTest {
         //Assert
         for(Header header : expectedGeneralHeaders) {
             assertEquals(expectedGeneralHeaders.get(header.getName()), createListHeaders.get(header.getName()));
+        }
+    }
+
+    @Test
+    public void shouldReturnCorrectHeadersOnRenameList(){
+        //Arrange
+        String listName = "testList";
+        CreateListResponse createListResponseBody = listClient.createList(listName, boardId);
+        String listId = createListResponseBody.getId();
+        //Act
+        String newListName = "newName";
+        Headers renameListHeaders = listClient.getHeadersAfterRenameList(listId,newListName);
+        //Assert
+        for(Header header : expectedGeneralHeaders) {
+            assertEquals(expectedGeneralHeaders.get(header.getName()), renameListHeaders.get(header.getName()));
         }
     }
 
