@@ -2,6 +2,7 @@ package apiTests;
 
 import model.CreateBoardResponse;
 import model.GetBoardResponse;
+import model.UnarchiveBoardResponse;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -108,6 +109,40 @@ public class BoardTest {
         //Tear down
         boardClient.deleteBoard(boardId);
     }
+
+    @Test
+    public void shouldArchiveBoard(){
+        //Arrange
+        String boardName = "testBoard";
+        CreateBoardResponse createBoardResponseBody = boardClient.createBoard(boardName);
+        String boardId = createBoardResponseBody.getId();
+        //Act
+        GetBoardResponse archiveBoardResponseBody = boardClient.archiveBoard(boardId);
+        GetBoardResponse getBoardResponseBody = boardClient.getBoard(boardId);
+        //Assert
+        assertEquals(true, archiveBoardResponseBody.getClosed());
+        assertEquals(true, getBoardResponseBody.getClosed());
+        //Tear down
+        boardClient.deleteBoard(boardId);
+    }
+
+    @Test
+    public void shouldUnarchiveBoard(){
+        //Arrange
+        String boardName = "testBoard";
+        CreateBoardResponse createBoardResponseBody = boardClient.createBoard(boardName);
+        String boardId = createBoardResponseBody.getId();
+        boardClient.archiveBoard(boardId);
+        //Act
+        UnarchiveBoardResponse unarchiveBoardResponseBody = boardClient.unarchiveBoard(boardId);
+        GetBoardResponse getBoardResponseBody = boardClient.getBoard(boardId);
+        //Assert
+        assertEquals(false, unarchiveBoardResponseBody.getClosed());
+        assertEquals(false, getBoardResponseBody.getClosed());
+        //Tear down
+        boardClient.deleteBoard(boardId);
+    }
+
     //TODO check that deleted board cannot be retrieved
     //TODO Update all possible fields of the board simultaneously
 }

@@ -4,6 +4,7 @@ import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import model.CreateBoardResponse;
 import model.GetBoardResponse;
+import model.UnarchiveBoardResponse;
 import org.apache.http.HttpStatus;
 
 public class BoardClient extends RestConnector {
@@ -54,5 +55,21 @@ public class BoardClient extends RestConnector {
         Response response = request.put(url);
         response.then().assertThat().statusCode(HttpStatus.SC_OK);
         return response.getBody().as(GetBoardResponse.class);
+    }
+
+    public GetBoardResponse archiveBoard(String boardId) {
+        RequestSpecification request = prepareRequest();
+        String url = trelloProductionEndpoints.archiveBoard(boardId);
+        Response response = request.put(url);
+        response.then().assertThat().statusCode(HttpStatus.SC_OK);
+        return response.getBody().as(GetBoardResponse.class);
+    }
+
+    public UnarchiveBoardResponse unarchiveBoard(String boardId) {
+        RequestSpecification request = prepareRequest();
+        String url = trelloProductionEndpoints.unarchiveBoard(boardId);
+        Response response = request.put(url);
+        response.then().assertThat().statusCode(HttpStatus.SC_OK);
+        return response.getBody().as(UnarchiveBoardResponse.class);
     }
 }

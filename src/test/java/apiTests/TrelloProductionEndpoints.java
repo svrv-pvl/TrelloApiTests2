@@ -144,6 +144,14 @@ public final class TrelloProductionEndpoints {
         return updateBoard(boardId, "desc", newBoardDescription);
     }
 
+    public  String archiveBoard(String boardId){
+        return updateBoard(boardId, "closed", "true");
+    }
+
+    public  String unarchiveBoard(String boardId){
+        return updateBoard(boardId, "closed", "false");
+    }
+
     private String getToken(){
         return  "key=" + key + "&token=" + token;
     }
