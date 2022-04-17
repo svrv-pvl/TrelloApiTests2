@@ -2,6 +2,7 @@ package apiTests;
 
 import io.restassured.http.Header;
 import io.restassured.http.Headers;
+import io.restassured.response.Response;
 import model.CreateBoardResponse;
 import model.GetBoardResponse;
 import model.UnarchiveBoardResponse;
@@ -176,6 +177,27 @@ public class BoardTest extends TrelloTest{
         //Tear down
         boardClient.deleteBoard(boardId);
     }
+
+    @Test
+    public void shouldReturnCorrectHeadersOnCreateBoard(){
+        //Arrange
+
+        //Act
+        String boardName = "testBoard";
+        Response response = boardClient.returnResponseOnCreateBoard(boardName);
+        Headers createBoardHeaders = response.getHeaders();
+        String boardId = response.as(CreateBoardResponse.class).getId();
+        //Assert
+        for(Header header: expectedGeneralHeaders){
+            assertEquals(expectedGeneralHeaders.get(header.getName()), createBoardHeaders.get(header.getName()));
+        }
+        for(Header header: expectedHeadersFor200){
+            assertEquals(expectedHeadersFor200.get(header.getName()), createBoardHeaders.get(header.getName()));
+        }
+        //Tear down
+        boardClient.deleteBoard(boardId);
+    }
+
 
     //TODO Update all possible fields of the board simultaneously
 }

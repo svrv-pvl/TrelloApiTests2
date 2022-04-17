@@ -85,4 +85,12 @@ public class BoardClient extends RestConnector {
         response.then().assertThat().statusCode(HttpStatus.SC_OK);
         return response.getHeaders();
     }
+
+    public Response returnResponseOnCreateBoard(String boardName){
+        RequestSpecification request = prepareRequest();
+        String url = trelloProductionEndpoints.createBoard(boardName);
+        Response response = request.post(url);
+        response.then().assertThat().statusCode(HttpStatus.SC_OK);
+        return response;
+    }
 }
