@@ -92,7 +92,6 @@ public class BoardTest {
         boardClient.deleteBoard(boardId);
     }
 
-
     @Test
     public void shouldChangeBoardDescription(){
         //Arrange
@@ -142,7 +141,20 @@ public class BoardTest {
         //Tear down
         boardClient.deleteBoard(boardId);
     }
+    //TODO add tests for prefs modification
 
-    //TODO check that deleted board cannot be retrieved
+    @Test
+    public void shouldDeleteBoard(){
+        //Arrange
+        String boardName = "testBoard";
+        CreateBoardResponse createBoardResponseBody = boardClient.createBoard(boardName);
+        String boardId = createBoardResponseBody.getId();
+        //Act
+        boardClient.deleteBoard(boardId);
+        int getBoardResponseCode = boardClient.returnErrorOnGettingBoardWhichDoesNotExist(boardId);
+        //Assert
+        assertEquals(404, getBoardResponseCode);
+    }
+
     //TODO Update all possible fields of the board simultaneously
 }

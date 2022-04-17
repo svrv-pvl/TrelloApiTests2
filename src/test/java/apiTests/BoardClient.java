@@ -72,4 +72,11 @@ public class BoardClient extends RestConnector {
         response.then().assertThat().statusCode(HttpStatus.SC_OK);
         return response.getBody().as(UnarchiveBoardResponse.class);
     }
+
+    public int returnErrorOnGettingBoardWhichDoesNotExist(String boardId){
+        RequestSpecification request = prepareRequest();
+        String url = trelloProductionEndpoints.getBoard(boardId);
+        Response response = request.get(url);
+        return response.statusCode();
+    }
 }
