@@ -105,13 +105,23 @@ public class ListClient extends RestConnector {
         RequestSpecification request = prepareRequest();
         String url = trelloProductionEndpoints.getList(listId);
         Response response = request.get(url);
+        response.then().assertThat().statusCode(HttpStatus.SC_OK);
         return response.getHeaders();
     }
 
     public Headers getHeadersAfterCreateList(String listName, String boardId){
         RequestSpecification request = prepareRequest();
         String url = trelloProductionEndpoints.createList(listName, boardId);
-        Response response = request.get(url);
+        Response response = request.post(url);
+        response.then().assertThat().statusCode(HttpStatus.SC_OK);
+        return response.getHeaders();
+    }
+
+    public Headers getHeadersAfterRenameList(String listId, String newListName){
+        RequestSpecification request = prepareRequest();
+        String url = trelloProductionEndpoints.renameList(listId, newListName);
+        Response response = request.put(url);
+        response.then().assertThat().statusCode(HttpStatus.SC_OK);
         return response.getHeaders();
     }
 }

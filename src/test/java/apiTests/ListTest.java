@@ -22,8 +22,6 @@ public class ListTest {
     private static ListClient listClient;
     private static BoardClient boardClient;
     private static Headers expectedGeneralHeaders;
-    private static Headers expectedGetListHeaders;
-    private static Headers expectedCreateListHeaders;
 
     @BeforeAll
     public static void connectionAndDataInitializationAndBoardCreation(){
@@ -35,8 +33,6 @@ public class ListTest {
         boardId = boardResponseBody.getId();
 
         expectedGeneralHeaders = readHeaders("src/test/java/model/generalHeaders.json");
-        expectedGetListHeaders = readHeaders("src/test/java/model/getListHeaders.json");
-        expectedCreateListHeaders = readHeaders("src/test/java/model/createListHeaders.json");
     }
 
     //TODO Add tests for headers
@@ -276,9 +272,6 @@ public class ListTest {
         for(Header header : expectedGeneralHeaders) {
             assertEquals(expectedGeneralHeaders.get(header.getName()), getListHeaders.get(header.getName()));
         }
-        for(Header header : expectedGetListHeaders) {
-            assertEquals(expectedGetListHeaders.get(header.getName()), getListHeaders.get(header.getName()));
-        }
     }
 
     @Test
@@ -292,9 +285,6 @@ public class ListTest {
         //Assert
         for(Header header : expectedGeneralHeaders) {
             assertEquals(expectedGeneralHeaders.get(header.getName()), createListHeaders.get(header.getName()));
-        }
-        for(Header header : expectedCreateListHeaders) {
-            assertEquals(expectedCreateListHeaders.get(header.getName()), createListHeaders.get(header.getName()));
         }
     }
 
