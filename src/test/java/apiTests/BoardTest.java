@@ -207,7 +207,6 @@ public class BoardTest extends TrelloTest{
         CreateBoardResponse createBoardResponseBody = boardClient.createBoard(boardName);
         String boardId = createBoardResponseBody.getId();
         //Act
-        GetBoardResponse getBoardResponse = boardClient.getBoard(boardId);
         Headers deleteBoardHeaders = boardClient.returnHeadersOnDeleteBoard(boardId);
         //Assert
         for(Header header: expectedGeneralHeaders){
@@ -218,6 +217,24 @@ public class BoardTest extends TrelloTest{
         }
     }
 
+    @Test
+    public void shouldReturnCorrectHeadersOnUpdateBoard(){
+        //Arrange
+        String boardName = "testBoard";
+        CreateBoardResponse createBoardResponseBody = boardClient.createBoard(boardName);
+        String boardId = createBoardResponseBody.getId();
+        //Act
+        Headers updateBoardHeaders = boardClient.returnHeadersOnUpdateBoard(boardId);
+        //Assert
+        for(Header header: expectedGeneralHeaders){
+            assertEquals(expectedGeneralHeaders.get(header.getName()), updateBoardHeaders.get(header.getName()));
+        }
+        for(Header header: expectedHeadersFor200){
+            assertEquals(expectedHeadersFor200.get(header.getName()), updateBoardHeaders.get(header.getName()));
+        }
+        //Tear down
+        boardClient.deleteBoard(boardId);
+    }
 
     //TODO Update all possible fields of the board simultaneously
 }

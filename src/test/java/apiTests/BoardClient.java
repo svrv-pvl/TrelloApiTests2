@@ -101,4 +101,12 @@ public class BoardClient extends RestConnector {
         response.then().assertThat().statusCode(HttpStatus.SC_OK);
         return response.getHeaders();
     }
+
+    public Headers returnHeadersOnUpdateBoard(String boardId){
+        RequestSpecification request = prepareRequest();
+        String url = trelloProductionEndpoints.archiveBoard(boardId);
+        Response response = request.put(url);
+        response.then().assertThat().statusCode(HttpStatus.SC_OK);
+        return response.getHeaders();
+    }
 }
