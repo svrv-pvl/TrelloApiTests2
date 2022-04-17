@@ -12,6 +12,9 @@ import java.util.List;
 
 public class TrelloTest {
     protected static Headers expectedGeneralHeaders;
+    protected static Headers expectedHeadersFor404;
+    protected static Headers expectedHeadersFor200;
+
     protected static Headers readHeaders(String filePath){
         Headers readHeaders = new Headers();
         FileInputStream fis;

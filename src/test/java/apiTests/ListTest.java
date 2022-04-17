@@ -21,8 +21,7 @@ public class ListTest extends TrelloTest{
     private static String boardId;
     private static ListClient listClient;
     private static BoardClient boardClient;
-    private static Headers expectedHeadersFor404;
-    private static Headers expectedHeadersFor200;
+
 
     @BeforeAll
     public static void connectionAndDataInitializationAndBoardCreation(){

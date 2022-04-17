@@ -21,6 +21,8 @@ public class BoardTest extends TrelloTest{
         boardClient = new BoardClient(connectionPropertiesFile);
 
         expectedGeneralHeaders = readHeaders("src/test/java/model/generalHeaders.json");
+        expectedHeadersFor404 = readHeaders("src/test/java/model/listHeadersFor404.json");
+        expectedHeadersFor200 = readHeaders("src/test/java/model/listHeadersFor200.json");
     }
 
     //TODO Add tests for headers
@@ -171,6 +173,9 @@ public class BoardTest extends TrelloTest{
         //Assert
         for(Header header: expectedGeneralHeaders){
             assertEquals(expectedGeneralHeaders.get(header.getName()), getBoardHeaders.get(header.getName()));
+        }
+        for(Header header: expectedHeadersFor200){
+            assertEquals(expectedHeadersFor200.get(header.getName()), getBoardHeaders.get(header.getName()));
         }
         //Tear down
         boardClient.deleteBoard(boardId);
