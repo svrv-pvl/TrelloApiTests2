@@ -18,7 +18,6 @@ public class ListClient extends RestConnector {
         String url = trelloProductionEndpoints.createList(listName, boardID);
         Response response = request.post(url);
         response.then().assertThat().statusCode(HttpStatus.SC_OK);
-        assertGeneralHeaders(response);
         CreateListResponse responseBody = response.jsonPath().getObject("$", CreateListResponse.class);
         return responseBody;
     }
@@ -28,7 +27,6 @@ public class ListClient extends RestConnector {
         String url = trelloProductionEndpoints.getList(listId);
         Response response = request.get(url);
         response.then().assertThat().statusCode(HttpStatus.SC_OK);
-        assertGeneralHeaders(response);
         GetListResponse responseBody = response.jsonPath().getObject("$", GetListResponse.class);
         return responseBody;
     }
@@ -45,7 +43,6 @@ public class ListClient extends RestConnector {
         String url = trelloProductionEndpoints.renameList(listId, listNewName);
         Response response = request.put(url);
         response.then().assertThat().statusCode(HttpStatus.SC_OK);
-        assertGeneralHeaders(response);
         UpdateListResponse responseBody = response.jsonPath().getObject("$", UpdateListResponse.class);
         return responseBody;
     }
@@ -62,7 +59,6 @@ public class ListClient extends RestConnector {
         String url = trelloProductionEndpoints.archiveList(listId);
         Response response = request.put(url);
         response.then().assertThat().statusCode(HttpStatus.SC_OK);
-        assertGeneralHeaders(response);
         UpdateListResponse responseBody = response.jsonPath().getObject("$", UpdateListResponse.class);
         return responseBody;
     }
@@ -72,7 +68,6 @@ public class ListClient extends RestConnector {
         String url = trelloProductionEndpoints.moveList(listId, newBoardName);
         Response response = request.put(url);
         response.then().assertThat().statusCode(HttpStatus.SC_OK);
-        assertGeneralHeaders(response);
         GetListResponse responseBody = response.jsonPath().getObject("$", GetListResponse.class);
         return responseBody;
     }
@@ -89,7 +84,6 @@ public class ListClient extends RestConnector {
         String url = trelloProductionEndpoints.unarchiveList(listId);
         Response response = request.put(url);
         response.then().assertThat().statusCode(HttpStatus.SC_OK);
-        assertGeneralHeaders(response);
         UpdateListResponse responseBody = response.jsonPath().getObject("$", UpdateListResponse.class);
         return responseBody;
     }

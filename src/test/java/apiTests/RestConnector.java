@@ -11,8 +11,4 @@ public class RestConnector {
         RequestSpecification spec = RestAssured.given().header("Content-Type", "text/plain");
         return spec;
     }
-
-    protected void assertGeneralHeaders(Response response){
-        response.then().header("X-Trello-Environment", trelloProductionEndpoints.getEnvironmentName());
-    }
 }

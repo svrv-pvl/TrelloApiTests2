@@ -17,7 +17,6 @@ public class BoardClient extends RestConnector {
         String url = trelloProductionEndpoints.getBoard(boardID);
         Response response = request.get(url);
         response.then().assertThat().statusCode(HttpStatus.SC_OK);
-        assertGeneralHeaders(response);
         GetBoardResponse responseBody = response.jsonPath().getObject("$", GetBoardResponse.class);
         return responseBody;
     }
@@ -27,7 +26,6 @@ public class BoardClient extends RestConnector {
         String url = trelloProductionEndpoints.createBoard(boardName);
         Response response = request.post(url);
         response.then().assertThat().statusCode(HttpStatus.SC_OK);
-        assertGeneralHeaders(response);
         CreateBoardResponse responseBody = response.jsonPath().getObject("$", CreateBoardResponse.class);
         return responseBody;
     }
@@ -37,7 +35,6 @@ public class BoardClient extends RestConnector {
         String url = trelloProductionEndpoints.deleteBoard(boardId);
         Response response = request.delete(url);
         response.then().assertThat().statusCode(HttpStatus.SC_OK);
-        assertGeneralHeaders(response);
         return response.statusCode();
     }
 
