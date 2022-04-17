@@ -4,6 +4,7 @@ import io.restassured.http.Headers;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import model.CreateBoardResponse;
+import model.CreateListResponse;
 import model.GetBoardResponse;
 import model.UnarchiveBoardResponse;
 import org.apache.http.HttpStatus;
@@ -116,5 +117,14 @@ public class BoardClient extends RestConnector {
         Response response = request.get(url);
         response.then().assertThat().statusCode(HttpStatus.SC_NOT_FOUND);
         return response.getHeaders();
+    }
+
+    public CreateListResponse createListOnBoard(String boardId, String listName){
+        RequestSpecification request = prepareRequest();
+        String url = trelloProductionEndpoints.createListOnBoard(boardId, listName);
+        Response response = request.post(url);
+        response.then().assertThat().statusCode(HttpStatus.SC_OK);
+        CreateListResponse createListResponse = response.as(CreateListResponse.class);
+        return  createListResponse;
     }
 }

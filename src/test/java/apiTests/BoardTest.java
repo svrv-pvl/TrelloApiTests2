@@ -3,14 +3,10 @@ package apiTests;
 import io.restassured.http.Header;
 import io.restassured.http.Headers;
 import io.restassured.response.Response;
-import model.CreateBoardResponse;
-import model.GetBoardResponse;
-import model.UnarchiveBoardResponse;
+import model.*;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Timeout;
-
-import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -18,11 +14,13 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 @Timeout(3)
 public class BoardTest extends TrelloTest{
     private static BoardClient boardClient;
+    private static ListClient listClient;
 
     @BeforeAll
     public static void connectionInitialization(){
         String connectionPropertiesFile = System.getProperty("connectionPropertiesFile");
         boardClient = new BoardClient(connectionPropertiesFile);
+        listClient = new ListClient(connectionPropertiesFile);
     }
 
     //TODO Add tests of incorrect url parameters
@@ -250,6 +248,31 @@ public class BoardTest extends TrelloTest{
             assertEquals(expectedHeadersFor404.get(header.getName()), getIncorrectBoardHeaders.get(header.getName()));
         }
         //Tear down
+    }
+
+    @Test
+    @Timeout(5)
+    public void shouldCreateListOnBoard(){
+        //Arrange
+        String boardName = "testBoard";
+        CreateBoardResponse createBoardResponseBody = boardClient.createBoard(boardName);
+        String boardId = createBoardResponseBody.getId();
+        //Act
+        Boolean expectedClosed = false;
+        String listName = "newList";
+        CreateListResponse createListResponseBody = boardClient.createListOnBoard(boardId, listName);
+        String listId = createListResponseBody.getId();
+        GetListResponse getListResponseBody = listClient.getList(listId);
+        //Assert
+        assertEquals(listId, createListResponseBody.getId());
+        assertEquals(listName, createListResponseBody.getName());
+        assertEquals(expectedClosed, createListResponseBody.getClosed());
+        assertEquals(boardId, createListResponseBody.getIdBoard());
+        assertEquals(boardId, getListResponseBody.getIdBoard());
+        assertEquals(listName, getListResponseBody.getName());
+        assertEquals(expectedClosed, getListResponseBody.getClosed());
+        //Tear down
+        boardClient.deleteBoard(boardId);
     }
 
     //TODO Add headers check on 400

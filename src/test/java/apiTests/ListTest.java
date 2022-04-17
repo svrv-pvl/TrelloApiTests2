@@ -22,7 +22,6 @@ public class ListTest extends TrelloTest{
     private static ListClient listClient;
     private static BoardClient boardClient;
 
-
     @BeforeAll
     public static void connectionAndDataInitializationAndBoardCreation(){
         String connectionPropertiesFile = System.getProperty("connectionPropertiesFile");

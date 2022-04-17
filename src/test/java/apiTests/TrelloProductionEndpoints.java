@@ -152,6 +152,13 @@ public final class TrelloProductionEndpoints {
         return updateBoard(boardId, "closed", "false");
     }
 
+    public String createListOnBoard(String boardId, String listName){
+        String url = baseUrl;
+        url += "boards/" + boardId + "/lists?name=" + listName + "&";
+        url += getToken();
+        return url;
+    }
+
     private String getToken(){
         return  "key=" + key + "&token=" + token;
     }
