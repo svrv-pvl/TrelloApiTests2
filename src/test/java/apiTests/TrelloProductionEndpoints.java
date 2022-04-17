@@ -140,6 +140,10 @@ public final class TrelloProductionEndpoints {
         return updateBoard(boardId, "name", newBoardName);
     }
 
+    public  String changeBoardDescription(String boardId, String newBoardDescription){
+        return updateBoard(boardId, "desc", newBoardDescription);
+    }
+
     private String getToken(){
         return  "key=" + key + "&token=" + token;
     }

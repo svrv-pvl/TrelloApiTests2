@@ -90,5 +90,24 @@ public class BoardTest {
         //Tear down
         boardClient.deleteBoard(boardId);
     }
+
+
+    @Test
+    public void shouldChangeBoardDescription(){
+        //Arrange
+        String boardName = "testBoard";
+        CreateBoardResponse createBoardResponseBody = boardClient.createBoard(boardName);
+        String boardId = createBoardResponseBody.getId();
+        //Act
+        String newBoardDescription = "newDesc";
+        GetBoardResponse changeBoardDescriptionResponseBody = boardClient.changeBoardDescription(boardId, newBoardDescription);
+        GetBoardResponse getBoardResponseBody = boardClient.getBoard(boardId);
+        //Assert
+        assertEquals(newBoardDescription, changeBoardDescriptionResponseBody.getDesc());
+        assertEquals(newBoardDescription, getBoardResponseBody.getDesc());
+        //Tear down
+        boardClient.deleteBoard(boardId);
+    }
     //TODO check that deleted board cannot be retrieved
+    //TODO Update all possible fields of the board simultaneously
 }
