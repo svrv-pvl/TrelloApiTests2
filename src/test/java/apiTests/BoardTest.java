@@ -8,13 +8,14 @@ import model.GetBoardResponse;
 import model.UnarchiveBoardResponse;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Timeout;
 
 import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-
+@Timeout(3)
 public class BoardTest extends TrelloTest{
     private static BoardClient boardClient;
 
@@ -24,8 +25,6 @@ public class BoardTest extends TrelloTest{
         boardClient = new BoardClient(connectionPropertiesFile);
     }
 
-    //TODO Add tests for headers
-    //TODO Add timeouts
     //TODO Add tests of incorrect url parameters
 
     @Test
