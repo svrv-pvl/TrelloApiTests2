@@ -1,10 +1,8 @@
 package apiTests;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.restassured.http.Header;
 import io.restassured.http.Headers;
-import io.restassured.specification.RequestSpecification;
 import model.*;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -13,7 +11,6 @@ import org.junit.jupiter.params.provider.ValueSource;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -24,10 +21,12 @@ public class ListTest {
     private static String boardId;
     private static ListClient listClient;
     private static BoardClient boardClient;
-    private static Headers headers;
+    private static Headers expectedGeneralHeaders;
+    private static Headers expectedGetListHeaders;
+    private static Headers expectedCreateListHeaders;
 
     @BeforeAll
-    public static void connectionInitializationAndBoardCreation(){
+    public static void connectionAndDataInitializationAndBoardCreation(){
         String connectionPropertiesFile = System.getProperty("connectionPropertiesFile");
         listClient = new ListClient(connectionPropertiesFile);
         boardClient = new BoardClient(connectionPropertiesFile);
@@ -35,7 +34,9 @@ public class ListTest {
         GetBoardResponse boardResponseBody = boardClient.createBoard(boardName);
         boardId = boardResponseBody.getId();
 
-        headers = readHeaders("src/test/java/model/generalHeaders.json");
+        expectedGeneralHeaders = readHeaders("src/test/java/model/generalHeaders.json");
+        expectedGetListHeaders = readHeaders("src/test/java/model/getListHeaders.json");
+        expectedCreateListHeaders = readHeaders("src/test/java/model/createListHeaders.json");
     }
 
     //TODO Add tests for headers
@@ -54,7 +55,6 @@ public class ListTest {
                 headerList.add(h);
             }
             readHeaders = new Headers(headerList);
-            int x = 1;
         } catch (IOException e) {
             System.out.println("[ERROR] Cannot read headers file");
         }
@@ -264,6 +264,7 @@ public class ListTest {
     }
 
     @Test
+    @Timeout(7)
     public void shouldReturnCorrectHeadersOnGetList(){
         //Arrange
         String listName = "testList";
@@ -272,12 +273,16 @@ public class ListTest {
         //Act
         Headers getListHeaders = listClient.getHeadersAfterGetList(listId);
         //Assert
-        for(Header header : headers) {
-            assertEquals(headers.get(header.getName()), getListHeaders.get(header.getName()));
+        for(Header header : expectedGeneralHeaders) {
+            assertEquals(expectedGeneralHeaders.get(header.getName()), getListHeaders.get(header.getName()));
+        }
+        for(Header header : expectedGetListHeaders) {
+            assertEquals(expectedGetListHeaders.get(header.getName()), getListHeaders.get(header.getName()));
         }
     }
 
     @Test
+    @Timeout(7)
     public void shouldReturnCorrectHeadersOnCreateList(){
         //Arrange
 
@@ -285,8 +290,11 @@ public class ListTest {
         String listName = "testList";
         Headers createListHeaders = listClient.getHeadersAfterCreateList(listName, boardId);
         //Assert
-        for(Header header : headers) {
-            assertEquals(headers.get(header.getName()), createListHeaders.get(header.getName()));
+        for(Header header : expectedGeneralHeaders) {
+            assertEquals(expectedGeneralHeaders.get(header.getName()), createListHeaders.get(header.getName()));
+        }
+        for(Header header : expectedCreateListHeaders) {
+            assertEquals(expectedCreateListHeaders.get(header.getName()), createListHeaders.get(header.getName()));
         }
     }
 

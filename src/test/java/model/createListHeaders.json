@@ -1,14 +1,22 @@
 [
   {
+    "name" : "X-Frame-Options",
+    "value" : "DENY"
+  },
+  {
+    "name" : "X-Dns-Prefetch-Control",
+    "value" : "off"
+  },
+  {
     "name" : "Cache-Control",
     "value" : "no-store, no-cache, must-revalidate, proxy-revalidate"
   },
   {
     "name" : "Expires",
-    "value" : "Thu, 01 Jan 1970 00:00:00"
+    "value" : "0"
   },
   {
     "name" : "Content-Type",
-    "value" : "Content-Type=text/plain; charset=utf-8"
+    "value" : "text/plain; charset=utf-8"
   }
 ]
