@@ -22,6 +22,8 @@ public class ListTest {
     private static ListClient listClient;
     private static BoardClient boardClient;
     private static Headers expectedGeneralHeaders;
+    private static Headers expectedHeadersFor404;
+    private static Headers expectedHeadersFor200;
 
     @BeforeAll
     public static void connectionAndDataInitializationAndBoardCreation(){
@@ -33,9 +35,10 @@ public class ListTest {
         boardId = boardResponseBody.getId();
 
         expectedGeneralHeaders = readHeaders("src/test/java/model/generalHeaders.json");
+        expectedHeadersFor404 = readHeaders("src/test/java/model/listHeadersFor404.json");
+        expectedHeadersFor200 = readHeaders("src/test/java/model/listHeadersFor200.json");
     }
 
-    //TODO Add tests for headers
     //TODO Add tests of incorrect url parameters
 
     private static Headers readHeaders(String filePath){
@@ -271,6 +274,9 @@ public class ListTest {
         for(Header header : expectedGeneralHeaders) {
             assertEquals(expectedGeneralHeaders.get(header.getName()), getListHeaders.get(header.getName()));
         }
+        for(Header header : expectedHeadersFor200) {
+            assertEquals(expectedHeadersFor200.get(header.getName()), getListHeaders.get(header.getName()));
+        }
     }
 
     @Test
@@ -283,6 +289,9 @@ public class ListTest {
         //Assert
         for(Header header : expectedGeneralHeaders) {
             assertEquals(expectedGeneralHeaders.get(header.getName()), createListHeaders.get(header.getName()));
+        }
+        for(Header header : expectedHeadersFor200) {
+            assertEquals(expectedHeadersFor200.get(header.getName()), createListHeaders.get(header.getName()));
         }
     }
 
@@ -298,6 +307,25 @@ public class ListTest {
         //Assert
         for(Header header : expectedGeneralHeaders) {
             assertEquals(expectedGeneralHeaders.get(header.getName()), renameListHeaders.get(header.getName()));
+        }
+        for(Header header : expectedHeadersFor200) {
+            assertEquals(expectedHeadersFor200.get(header.getName()), renameListHeaders.get(header.getName()));
+        }
+    }
+
+    @Test
+    public void shouldReturnCorrectHeadersOnGetListReturned404(){
+        //Arrange
+
+        //Act
+        String incorrectListId = "62584294421adb68584366ed";
+        Headers getListHeaders = listClient.getHeadersAfter404OnGetList(incorrectListId);
+        //Assert
+        for(Header header : expectedGeneralHeaders) {
+            assertEquals(expectedGeneralHeaders.get(header.getName()), getListHeaders.get(header.getName()));
+        }
+        for(Header header : expectedHeadersFor404) {
+            assertEquals(expectedHeadersFor404.get(header.getName()), getListHeaders.get(header.getName()));
         }
     }
 

@@ -124,4 +124,12 @@ public class ListClient extends RestConnector {
         response.then().assertThat().statusCode(HttpStatus.SC_OK);
         return response.getHeaders();
     }
+
+    public Headers getHeadersAfter404OnGetList(String listId){
+        RequestSpecification request = prepareRequest();
+        String url = trelloProductionEndpoints.getList(listId);
+        Response response = request.get(url);
+        response.then().assertThat().statusCode(HttpStatus.SC_NOT_FOUND);
+        return response.getHeaders();
+    }
 }
