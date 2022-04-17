@@ -1,5 +1,6 @@
 package apiTests;
 
+import io.restassured.http.Headers;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import model.CreateBoardResponse;
@@ -75,5 +76,13 @@ public class BoardClient extends RestConnector {
         String url = trelloProductionEndpoints.getBoard(boardId);
         Response response = request.get(url);
         return response.statusCode();
+    }
+
+    public Headers returnHeadersOnGetBoard(String boardId){
+        RequestSpecification request = prepareRequest();
+        String url = trelloProductionEndpoints.getBoard(boardId);
+        Response response = request.get(url);
+        response.then().assertThat().statusCode(HttpStatus.SC_OK);
+        return response.getHeaders();
     }
 }

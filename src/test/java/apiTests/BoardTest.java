@@ -1,5 +1,7 @@
 package apiTests;
 
+import io.restassured.http.Header;
+import io.restassured.http.Headers;
 import model.CreateBoardResponse;
 import model.GetBoardResponse;
 import model.UnarchiveBoardResponse;
@@ -10,13 +12,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 
-public class BoardTest {
+public class BoardTest extends TrelloTest{
     private static BoardClient boardClient;
 
     @BeforeAll
     public static void connectionInitialization(){
         String connectionPropertiesFile = System.getProperty("connectionPropertiesFile");
         boardClient = new BoardClient(connectionPropertiesFile);
+
+        expectedGeneralHeaders = readHeaders("src/test/java/model/generalHeaders.json");
     }
 
     //TODO Add tests for headers
@@ -154,6 +158,22 @@ public class BoardTest {
         int getBoardResponseCode = boardClient.returnErrorOnGettingBoardWhichDoesNotExist(boardId);
         //Assert
         assertEquals(404, getBoardResponseCode);
+    }
+
+    @Test
+    public void shouldReturnCorrectHeadersOnGetBoard(){
+        //Arrange
+        String boardName = "testBoard";
+        CreateBoardResponse createBoardResponseBody = boardClient.createBoard(boardName);
+        String boardId = createBoardResponseBody.getId();
+        //Act
+        Headers getBoardHeaders = boardClient.returnHeadersOnGetBoard(boardId);
+        //Assert
+        for(Header header: expectedGeneralHeaders){
+            assertEquals(expectedGeneralHeaders.get(header.getName()), getBoardHeaders.get(header.getName()));
+        }
+        //Tear down
+        boardClient.deleteBoard(boardId);
     }
 
     //TODO Update all possible fields of the board simultaneously
