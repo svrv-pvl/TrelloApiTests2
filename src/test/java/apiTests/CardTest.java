@@ -37,7 +37,6 @@ public class CardTest extends TrelloTest{
         CreateCardResponse createCardResponseBody = cardClient.createCard(listId);
         //Assert
         assertEquals(boardId, createCardResponseBody.getIdBoard());
-        //TODO add tear down
         //Tear down
         String cardId = createCardResponseBody.getId();
         cardClient.deleteCard(cardId);
