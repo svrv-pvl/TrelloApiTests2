@@ -31,6 +31,7 @@ public class ListTest extends TrelloTest{
     //TODO Add tests of incorrect url parameters
     //TODO Add tests of all possible fields on get list
     //TODO Add headers check on 400
+    //TODO test cards on the list
 
     @Test
     public void shouldCreateNewEmptyList(){

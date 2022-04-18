@@ -8,6 +8,8 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Timeout;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -42,12 +44,12 @@ public class CardTest extends TrelloTest{
         cardClient.deleteCard(cardId);
     }
 
-    @Test
-    public void shouldRenameCard(){
+    @ParameterizedTest
+    @ValueSource(strings = {"d", "  ", "newName", "$", "!"})
+    public void shouldRenameCard(String newCardName){
         //Arrange
         String cardId = cardClient.createDefaultCardAndReturnId(listId);
         //Act
-        String newCardName = "newName";
         GetCardResponse renameCardResponseBody = cardClient.renameCard(cardId, newCardName);
         GetCardResponse getCardResponseBody = cardClient.getCard(cardId);
         //Assert
@@ -56,12 +58,12 @@ public class CardTest extends TrelloTest{
         //Tear down
     }
 
-    @Test
-    public void shouldChangeCardDescription(){
+    @ParameterizedTest
+    @ValueSource(strings = {"d", "  ", "newDesc", "$", "!"})
+    public void shouldChangeCardDescription(String newCardDescription){
         //Arrange
         String cardId = cardClient.createDefaultCardAndReturnId(listId);
         //Act
-        String newCardDescription = "newDescription";
         GetCardResponse updateCardResponseBody = cardClient.changeCardDescription(cardId, newCardDescription);
         GetCardResponse getCardResponseBody = cardClient.getCard(cardId);
         //Assert
