@@ -4,6 +4,7 @@ import io.restassured.http.Header;
 import io.restassured.http.Headers;
 import io.restassured.response.Response;
 import model.*;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Timeout;
@@ -36,8 +37,10 @@ public class CardTest extends TrelloTest{
         CreateCardResponse createCardResponseBody = cardClient.createCard(listId);
         //Assert
         assertEquals(boardId, createCardResponseBody.getIdBoard());
-
     }
 
-    //TODO Add after all where destroy the board
+    @AfterAll
+    public static void removeTestBoards(){
+        boardClient.deleteBoard(boardId);
+    }
 }
