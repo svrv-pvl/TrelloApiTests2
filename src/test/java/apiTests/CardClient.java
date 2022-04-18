@@ -18,4 +18,12 @@ public class CardClient extends RestConnector{
         CreateCardResponse createCardResponseBody = response.as(CreateCardResponse.class);
         return createCardResponseBody;
     }
+
+    public int deleteCard(String cardId){
+        RequestSpecification request = prepareRequest();
+        String url = trelloProductionEndpoints.deleteCard(cardId);
+        Response response = request.delete(url);
+        response.then().assertThat().statusCode(HttpStatus.SC_OK);
+        return response.statusCode();
+    }
 }

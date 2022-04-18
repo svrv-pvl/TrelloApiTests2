@@ -166,6 +166,13 @@ public final class TrelloProductionEndpoints {
         return url;
     }
 
+    public String deleteCard(String cardId){
+        String url = baseUrl;
+        url += "cards/" + cardId + "?";
+        url += getToken();
+        return url;
+    }
+
     private String getToken(){
         return  "key=" + key + "&token=" + token;
     }
