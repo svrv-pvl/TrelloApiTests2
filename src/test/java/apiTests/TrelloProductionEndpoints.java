@@ -159,9 +159,16 @@ public final class TrelloProductionEndpoints {
         return url;
     }
 
-    public String createCard(String listId){
+    public String createCard(String cardId){
         String url = baseUrl;
-        url += "cards?idList=" + listId + "&";
+        url += "cards?idList=" + cardId + "&";
+        url += getToken();
+        return url;
+    }
+
+    public String getCard(String cardId){
+        String url = baseUrl;
+        url += "cards/" + cardId + "?";
         url += getToken();
         return url;
     }
@@ -171,6 +178,17 @@ public final class TrelloProductionEndpoints {
         url += "cards/" + cardId + "?";
         url += getToken();
         return url;
+    }
+
+    private String updateCard(String cardId, String parameter, String value){
+        String url = baseUrl;
+        url += "cards/" + cardId + "?" + parameter + "=" + value + "&";
+        url += getToken();
+        return url;
+    }
+
+    public String renameCard(String cardId, String newName){
+        return updateCard(cardId, "name", newName);
     }
 
     private String getToken(){

@@ -39,6 +39,8 @@ public class BoardTest extends TrelloTest{
         boardClient.deleteBoard(createBoardResponseBody.getId());
     }
 
+    //TODO add test creating a board with other possible fields
+
     //TODO Try to get board which is not exist
     @Test
     public void shouldGetBoard(){
