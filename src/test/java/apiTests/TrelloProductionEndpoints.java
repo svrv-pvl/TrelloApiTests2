@@ -159,6 +159,13 @@ public final class TrelloProductionEndpoints {
         return url;
     }
 
+    public String createCard(String listId){
+        String url = baseUrl;
+        url += "cards?idList=" + listId + "&";
+        url += getToken();
+        return url;
+    }
+
     private String getToken(){
         return  "key=" + key + "&token=" + token;
     }

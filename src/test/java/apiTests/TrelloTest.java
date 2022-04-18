@@ -11,6 +11,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TrelloTest {
+    protected static ListClient listClient;
+    protected static BoardClient boardClient;
+    protected static CardClient cardClient;
+
     protected static Headers expectedGeneralHeaders;
     protected static Headers expectedHeadersFor404;
     protected static Headers expectedHeadersFor200;
@@ -34,7 +38,12 @@ public class TrelloTest {
         return readHeaders;
     }
 
-    public TrelloTest(){
+    public static void initializationClientsAndHeaders(){
+        String connectionPropertiesFile = System.getProperty("connectionPropertiesFile");
+        listClient = new ListClient(connectionPropertiesFile);
+        boardClient = new BoardClient(connectionPropertiesFile);
+        cardClient = new CardClient(connectionPropertiesFile);
+
         expectedGeneralHeaders = readHeaders("src/test/java/model/generalHeaders.json");
         expectedHeadersFor404 = readHeaders("src/test/java/model/additionalHeadersFor404.json");
         expectedHeadersFor200 = readHeaders("src/test/java/model/additionalHeadersFor200.json");

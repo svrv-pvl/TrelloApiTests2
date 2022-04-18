@@ -19,14 +19,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class ListTest extends TrelloTest{
 
     private static String boardId;
-    private static ListClient listClient;
-    private static BoardClient boardClient;
 
     @BeforeAll
     public static void connectionAndDataInitializationAndBoardCreation(){
-        String connectionPropertiesFile = System.getProperty("connectionPropertiesFile");
-        listClient = new ListClient(connectionPropertiesFile);
-        boardClient = new BoardClient(connectionPropertiesFile);
+        initializationClientsAndHeaders();
         String boardName = "list_test_board";
         GetBoardResponse boardResponseBody = boardClient.createBoard(boardName);
         boardId = boardResponseBody.getId();

@@ -13,14 +13,10 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 @Timeout(3)
 public class BoardTest extends TrelloTest{
-    private static BoardClient boardClient;
-    private static ListClient listClient;
 
     @BeforeAll
     public static void connectionInitialization(){
-        String connectionPropertiesFile = System.getProperty("connectionPropertiesFile");
-        boardClient = new BoardClient(connectionPropertiesFile);
-        listClient = new ListClient(connectionPropertiesFile);
+        initializationClientsAndHeaders();
     }
 
     //TODO Add tests of incorrect url parameters
@@ -60,6 +56,7 @@ public class BoardTest extends TrelloTest{
     }
 
     @Test
+    @Timeout(5)
     public void shouldBeSameResultWhenGetBoardFewTimes(){
         //Arrange
         String boardName = "testBoard";
@@ -277,4 +274,5 @@ public class BoardTest extends TrelloTest{
 
     //TODO Add headers check on 400
     //TODO Update all possible fields of the board simultaneously
+    //TODO Add tests with different parameters sent during creation
 }
