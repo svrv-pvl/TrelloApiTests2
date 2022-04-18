@@ -56,6 +56,20 @@ public class CardTest extends TrelloTest{
         //Tear down
     }
 
+    @Test
+    public void shouldChangeCardDescription(){
+        //Arrange
+        String cardId = cardClient.createDefaultCardAndReturnId(listId);
+        //Act
+        String newCardDescription = "newDescription";
+        GetCardResponse updateCardResponseBody = cardClient.changeCardDescription(cardId, newCardDescription);
+        GetCardResponse getCardResponseBody = cardClient.getCard(cardId);
+        //Assert
+        assertEquals(newCardDescription, updateCardResponseBody.getDesc());
+        assertEquals(newCardDescription, getCardResponseBody.getDesc());
+        //Tear down
+    }
+
     @AfterAll
     public static void removeTestBoards(){
         boardClient.deleteBoard(boardId);

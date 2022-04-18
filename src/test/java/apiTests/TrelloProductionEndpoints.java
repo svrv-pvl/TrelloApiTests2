@@ -191,6 +191,10 @@ public final class TrelloProductionEndpoints {
         return updateCard(cardId, "name", newName);
     }
 
+    public String changeCardDescription(String cardId, String newDescription){
+        return updateCard(cardId, "desc", newDescription);
+    }
+
     private String getToken(){
         return  "key=" + key + "&token=" + token;
     }

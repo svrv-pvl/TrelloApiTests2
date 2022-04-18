@@ -51,4 +51,13 @@ public class CardClient extends RestConnector{
         GetCardResponse getCardResponseBody = response.as(GetCardResponse.class);
         return getCardResponseBody;
     }
+
+    public GetCardResponse changeCardDescription(String cardId, String newDescription) {
+        RequestSpecification request = prepareRequest();
+        String url = trelloProductionEndpoints.changeCardDescription(cardId, newDescription);
+        Response response = request.put(url);
+        response.then().assertThat().statusCode(HttpStatus.SC_OK);
+        GetCardResponse updateCardResponseBody = response.as(GetCardResponse.class);
+        return updateCardResponseBody;
+    }
 }
