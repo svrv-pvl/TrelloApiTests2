@@ -20,7 +20,6 @@ public class CardTest extends TrelloTest{
     @BeforeAll
     public static void connectionInitializationBordAndList(){
         initializationClientsAndHeaders();
-        System.out.println("card test");
         String boardName = "boardForCards";
         GetBoardResponse createBoardResponseBody = boardClient.createBoard(boardName);
         boardId = createBoardResponseBody.getId();
